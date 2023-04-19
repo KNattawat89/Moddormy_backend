@@ -3,7 +3,7 @@ package model
 import "time"
 
 type Dorm struct {
-	DormID     *uint64    `json:"dorm_id" gorm:"primaryKey"`
+	DormID     *uint64    `json:"dorm_id" gorm:"primaryKey" gorm:"AUTO_INCREMENT"`
 	DormName   *string    `json:"dorm_name" gorm:"not null"`
 	OwnerID    *User      `json:"owner_id" gorm:"foreignKey:OwnerID"`
 	Address    *string    `json:"address" gorm:"not null"`
