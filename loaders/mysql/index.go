@@ -37,13 +37,13 @@ func Init() {
 		})
 
 	// open SQL connection
-	// dialector := mysql.New(
-	// 	mysql.Config{
-	// 		DSN: config.C.MySqlDsn,
-	// 	},
-	// )
+	dialector := mysql.New(
+		mysql.Config{
+			DSN: config.C.MySqlDsn,
+		},
+	)
 
-	if db, err := gorm.Open(mysql.Open("mysql://root:$tXM5fu@43Sy@moddormy.ivelse.com:3306/Moddormy"), &gorm.Config{
+	if db, err := gorm.Open(dialector, &gorm.Config{
 		Logger: gormLogger,
 		//DisableForeignKeyConstraintWhenMigrating: true,
 	}); err != nil {

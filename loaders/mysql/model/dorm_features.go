@@ -1,7 +1,8 @@
 package model
 
 type DormFeature struct {
-	DormID         *Dorm    `json:"dorm_id" gorm:"foreignKey:DormID"`
+	DormID         *uint64  `json:"dorm_id" gorm:"not null"`
+	Dorm           *Dorm    `json:"dorm" gorm:"foreignKey:DormID"`
 	Distant        *float32 `json:"distant" gorm:"not null"`
 	Pet            *bool    `json:"pet" gorm:"not null"`
 	Smoking        *bool    `json:"smoking" gorm:"not null"`

@@ -12,7 +12,7 @@ func (u userType) String() string {
 }
 
 type User struct {
-	UserId   *uint64   `gorm:"primaryKey" gorm:"AUTO_INCREMENT" json:"userId"`
+	UserId   *uint64   `gorm:"primaryKey" json:"userId"`
 	UserName *string   `gorm:"not null" json:"userName"`
 	Fname    *string   `gorm:"not null" json:"fname"`
 	Lname    *string   `gorm:"not null" json:"lname"`

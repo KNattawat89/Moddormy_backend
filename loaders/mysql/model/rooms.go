@@ -1,8 +1,9 @@
 package model
 
 type Room struct {
-	RoomID   *uint64  `json:"room_id" gorm:"primaryKey" gorm:"AUTO_INCREMENT"`
-	DormID   *Dorm    `json:"dorm_id" gorm:"foreignKey:DormID"`
+	RoomID   *uint64  `json:"room_id" gorm:"primaryKey"`
+	DormID   *uint64  `json:"dorm_id" gorm:"not null"`
+	Dorm     *Dorm    `json:"dorm" gorm:"foreignKey:DormID"`
 	RoomName *string  `json:"room_name" gorm:"not null"`
 	Price    *float64 `json:"price" gorm:"not null"`
 	Desc     *string  `json:"desc" gorm:"not null"`

@@ -1,6 +1,8 @@
 package model
 
 type DormImage struct {
-	DormID  *Dorm `json:"dorm_id" gorm:"foreignKey:DormID"`
-	ImageID *File `json:"image_id" gorm:"foreignKey:ImageID"`
+	DormID  *uint64 `json:"dorm_id" gorm:"not null"`
+	Dorm    *Dorm   `json:"dorm" gorm:"foreignKey:DormID"`
+	ImageID *uint64 `json:"image_id" gorm:"not null"`
+	Image   *File   `json:"image" gorm:"foreignKey:ImageID"`
 }

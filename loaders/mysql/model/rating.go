@@ -1,7 +1,8 @@
 package model
 
 type Rating struct {
-	ReviewID *Review `json:"review_id" gorm:"foreignKey:ReviewID"`
+	ReviewID *uint64 `json:"review_id" gorm:"not null"`
+	Review   *Review `json:"review" gorm:"foreignKey:ReviewID"`
 	Price    *int    `json:"price" gorm:"not null"`
 	Location *int    `json:"location" gorm:"not null"`
 	Facility *int    `json:"facility" gorm:"not null"`
