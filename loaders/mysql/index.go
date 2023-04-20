@@ -63,15 +63,12 @@ func Init() {
 }
 func migrate() error {
 	if err := Gorm.AutoMigrate(
-		new(model.DormFeature),
 		new(model.DormImage),
 		new(model.Dorm),
 		new(model.Favorite),
 		new(model.File),
-		new(model.Rating),
 		new(model.Review),
 		new(model.RoomImage),
-		new(model.RoomFeature),
 		new(model.Room),
 		new(model.User),
 	); err != nil {

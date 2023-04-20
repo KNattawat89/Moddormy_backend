@@ -1,9 +1,9 @@
 package model
 
 type Room struct {
-	RoomID      *uint64  `json:"room_id" gorm:"not null;primaryKey"`
-	DormID      *uint64  `json:"dorm_id" gorm:"not null;primaryKey"`
-	Dorm        *Dorm    `json:"dorm" gorm:"foreignKey:DormID;not null"`
+	Id          *uint64  `json:"room_id" gorm:"primaryKey;not null"`
+	DormId      *uint64  `json:"dorm_id" gorm:"primaryKey;not null"`
+	Dorm        *Dorm    `json:"dorm" gorm:"foreignKey:DormId;references:Id;not null"`
 	RoomName    *string  `json:"room_name" gorm:"not null"`
 	Price       *float64 `json:"price" gorm:"not null"`
 	Desc        *string  `json:"desc" gorm:"not null"`
@@ -16,3 +16,5 @@ type Room struct {
 	Bathroom    *bool    `json:"bathroom" gorm:"not null"`
 	TV          *bool    `json:"tv" gorm:"not null"`
 }
+
+//autoIncrement:false;

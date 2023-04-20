@@ -3,10 +3,10 @@ package model
 import "time"
 
 type Dorm struct {
-	ID             *uint64    `json:"dorm_id" gorm:"primaryKey;not null"`
+	Id             *uint64    `json:"id" gorm:"primaryKey;not null;"`
 	DormName       *string    `json:"dorm_name" gorm:"not null"`
-	OwnerId        *uint64    `gorm:"not null"`
-	Owner          *User      `gorm:"foreignKey:OwnerId;not null"`
+	OwnerId        *uint64    `gorm:"primaryKey;not null"`
+	Owner          *User      `gorm:"foreignKey:OwnerId;references:Id;not null"`
 	Address        *string    `json:"address" gorm:"not null"`
 	Desc           *string    `json:"desc" gorm:"not null"`
 	AdvancePayment *int       `json:"advance_payment" gorm:"not null"`

@@ -1,24 +1,16 @@
 package model
 
-type userType int
-
-const (
-	Customer userType = iota
-	DormOwner
-)
-
-func (u userType) String() string {
-	return [...]string{"Customer", "DormOwner"}[u]
-}
+import "Moddormy_backend/types/enum"
 
 type User struct {
-	UserId   *uint64   `gorm:"primaryKey;not null" json:"user_id"`
-	UserName *string   `gorm:"not null" json:"username"`
-	Password *string   `gorm:"not null" json:"password"`
-	Fname    *string   `gorm:"not null" json:"fname"`
-	Lname    *string   `gorm:"not null" json:"lname"`
-	Email    *string   `gorm:"not null" json:"email"`
-	Tel      *string   `gorm:"not null" json:"tel"`
-	LineID   *string   `json:"line_id"`
-	UserType *userType `gorm:"type:enum('Customer', 'DormOwner');not null" json:"user_type"`
+	Id          *uint64    `gorm:"primaryKey;not null;index:idx_id" json:"id"`
+	UserName    *string    `gorm:"type:VARCHAR(255);not null" json:"username"`
+	Password    *string    `gorm:"type:VARCHAR(255); not null" json:"password"`
+	Fname       *string    `gorm:"type:VARCHAR(255);not null" json:"fname"`
+	Lname       *string    `gorm:"type:VARCHAR(255);not null" json:"lname"`
+	Email       *string    `gorm:"type:VARCHAR(255); index:email,unique; not null" json:"email"`
+	Tel         *string    `gorm:"not null" json:"tel"`
+	LineID      *string    `json:"line_id" gorm:"type:VARCHAR(255);"`
+	UserType    *enum.User `gorm:"type:ENUM('Customer', 'DormOwner');not null" json:"user_type"`
+	UnusedField string     `gorm:"-" json:"-"`
 }
