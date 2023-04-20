@@ -12,11 +12,13 @@ func (u userType) String() string {
 }
 
 type User struct {
-	UserId   *uint64   `gorm:"primaryKey" json:"userId"`
-	UserName *string   `gorm:"not null" json:"userName"`
+	UserId   *uint64   `gorm:"primaryKey;not null" json:"user_id"`
+	UserName *string   `gorm:"not null" json:"username"`
+	Password *string   `gorm:"not null" json:"password"`
 	Fname    *string   `gorm:"not null" json:"fname"`
 	Lname    *string   `gorm:"not null" json:"lname"`
 	Email    *string   `gorm:"not null" json:"email"`
 	Tel      *string   `gorm:"not null" json:"tel"`
-	UserType *userType `gorm:"type:enum('Customer', 'DormOwner')" gorm:"not null" json:"userType"`
+	LineID   *string   `json:"line_id"`
+	UserType *userType `gorm:"type:enum('Customer', 'DormOwner');not null" json:"user_type"`
 }
