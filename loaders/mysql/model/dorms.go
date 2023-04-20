@@ -16,7 +16,7 @@ type Dorm struct {
 	LastUpdate     *time.Time `json:"last_update" gorm:"not null"`
 	Distant        *float32   `json:"distant" gorm:"not null"` // km
 	Pet            *bool      `json:"pet" gorm:"not null"`
-	Smoking        *bool      `json:"smoking" gorm:"not null"`
+	SmokeFree      *bool      `json:"smoke_free" gorm:"not null"`
 	Parking        *bool      `json:"parking" gorm:"not null"`
 	Lift           *bool      `json:"lift" gorm:"not null"`
 	Pool           *bool      `json:"pool" gorm:"not null"`

@@ -4,4 +4,6 @@ type config struct {
 	LogLevel     uint32 `yaml:"logLevel"`
 	MySqlDsn     string `yaml:"mySqlDsn"`
 	MySqlMigrate bool   `yaml:"mySqlMigrate"`
+	ServerHeader string `yaml:"serverHeader"`
+	BackAddress  string `yaml:"backAddress"`
 }
