@@ -2,15 +2,21 @@ module Moddormy_backend
 
 go 1.19
 
-require gorm.io/driver/mysql v1.5.0
+require (
+	github.com/go-playground/validator/v10 v10.12.0
+	github.com/gofiber/fiber/v2 v2.44.0
+	github.com/sirupsen/logrus v1.9.0
+	golang.org/x/sys v0.7.0
+	gopkg.in/yaml.v3 v3.0.1
+	gorm.io/driver/mysql v1.5.0
+	gorm.io/gorm v1.25.0
+)
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.12.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
-	github.com/gofiber/fiber/v2 v2.44.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
@@ -23,14 +29,10 @@ require (
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/savsgio/dictpool v0.0.0-20221023140959-7bf2e61cea94 // indirect
 	github.com/savsgio/gotils v0.0.0-20230208104028-c358bd845dee // indirect
-	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/tinylib/msgp v1.1.8 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.45.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/crypto v0.7.0 // indirect
-	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/text v0.8.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/gorm v1.25.0 // indirect
 )
