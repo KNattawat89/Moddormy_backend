@@ -66,7 +66,6 @@ func migrate() error {
 		new(model.DormImage),
 		new(model.Dorm),
 		new(model.Favorite),
-		new(model.File),
 		new(model.Review),
 		new(model.RoomImage),
 		new(model.Room),

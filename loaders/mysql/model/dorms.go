@@ -7,7 +7,13 @@ type Dorm struct {
 	DormName       *string    `json:"dorm_name" gorm:"not null"`
 	OwnerId        *uint64    `gorm:"primaryKey;not null"`
 	Owner          *User      `gorm:"foreignKey:OwnerId;references:Id;not null"`
-	Address        *string    `json:"address" gorm:"not null"`
+	HouseNumber    *string    `json:"house_number" gorm:"not null"`
+	Street         *string    `json:"street"`
+	Soi            *string    `json:"soi"`
+	SubDistrict    *string    `json:"sub_district" gorm:"not null"`
+	District       *string    `json:"district" gorm:"not null"`
+	City           *string    `json:"city" gorm:"not null"`
+	Zipcode        *int16     `json:"zipcode" gorm:"not null"`
 	Desc           *string    `json:"desc" gorm:"not null"`
 	AdvancePayment *int       `json:"advance_payment" gorm:"not null"`
 	ElectricPrice  *float32   `json:"electric_price" gorm:"not null"`
