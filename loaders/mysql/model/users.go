@@ -1,6 +1,9 @@
 package model
 
-import "Moddormy_backend/types/enum"
+import (
+	"Moddormy_backend/types/enum"
+	"time"
+)
 
 type User struct {
 	Id          *uint64    `gorm:"primaryKey;not null;index:idx_id" json:"id"`
@@ -12,5 +15,6 @@ type User struct {
 	Tel         *string    `gorm:"not null" json:"tel"`
 	LineID      *string    `json:"line_id" gorm:"type:VARCHAR(255);"`
 	UserType    *enum.User `gorm:"type:ENUM('Customer', 'DormOwner');not null" json:"user_type"`
+	UpdatedAt   *time.Time `json:"updated_at" gorm:"not null"`
 	UnusedField string     `gorm:"-" json:"-"`
 }
