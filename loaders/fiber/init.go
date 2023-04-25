@@ -34,7 +34,7 @@ func Init() {
 	})
 
 	// Register API endpoints
-	apiGroup := app.Group("api/")
+	apiGroup := app.Group("api")
 
 	//apiGroup.Use(middlewares.Limiter)
 	//apiGroup.Use(middlewares.Cors)
@@ -45,7 +45,7 @@ func Init() {
 	//apiGroup.Get("/hello", func(c *fiber.Ctx) error {
 	//	return c.SendString("Hello, World 👋!")
 	//})
-	app.Static("images/", "./images")
+	app.Static("/images", "./images")
 
 	// Register not found handler
 	app.Use(notfoundHandler)
