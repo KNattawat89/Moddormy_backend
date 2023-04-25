@@ -19,8 +19,8 @@ func Rooming(c *fiber.Ctx) error {
 	//claims := token.Claims.(*common.UserClaim)
 
 	// * Parse body
-	var body *payload.UploadRoom
-	if err := c.BodyParser(&body); err != nil {
+	body := new(payload.UploadRoom)
+	if err := c.BodyParser(body); err != nil {
 		return &response.GenericError{
 			Message: "Unable to parse body",
 			Err:     nil,
