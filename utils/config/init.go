@@ -1,7 +1,7 @@
 package config
 
 import (
-	"Moddormy_backend/utils/wrapper"
+	"Moddormy_backend/utils/logger"
 	"io/ioutil"
 
 	"github.com/sirupsen/logrus"
@@ -17,11 +17,11 @@ func init() {
 	// Load configurations to struct
 	yml, err := ioutil.ReadFile("config.yaml")
 	if err != nil {
-		wrapper.Fatal("UNABLE TO READ YAML CONFIGURATION FILE")
+		logger.Log(logrus.Fatal, "UNABLE TO READ YAML CONFIGURATION FILE")
 	}
 	err = yaml.Unmarshal(yml, C)
 	if err != nil {
-		wrapper.Fatal("UNABLE TO PARSE YAML CONFIGURATION FILE")
+		logger.Log(logrus.Fatal, "UNABLE TO PARSE YAML CONFIGURATION FILE")
 	}
 
 	// Apply configurations

@@ -9,6 +9,7 @@ func GenerateString(charactors string, number int) *string {
 	var generated strings.Builder
 	for i := 0; i < number; i++ {
 		random := rand.Intn(len(charactors))
+
 		randomChar := charactors[random]
 		generated.WriteString(string(randomChar))
 	}
