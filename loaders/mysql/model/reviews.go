@@ -3,7 +3,6 @@ package model
 import "time"
 
 type Review struct {
-	Id             *uint64    `json:"review_id" gorm:"not null;primaryKey"`
 	DormId         *uint64    `json:"dorm_id" gorm:"not null;primaryKey"`
 	Dorm           *Dorm      `json:"dorm" gorm:"foreignKey:DormId;references:Id;not null"`
 	UserId         *uint64    `json:"user_id" gorm:"not null;primaryKey"`
