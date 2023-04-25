@@ -3,7 +3,7 @@ package model
 import "time"
 
 type RoomImage struct {
-	RoomId    *uint64    `json:"room_id" gorm:"not null;primaryKey"`
+	RoomId    *uint64    `json:"room_id" gorm:"not null"`
 	Room      *Room      `json:"room" gorm:"foreignKey:RoomId;references:Id;not null"`
 	FileName  *string    `json:"file_name" gorm:"not null"`
 	UpdatedAt *time.Time `json:"update_at" gorm:"not null"`
