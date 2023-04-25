@@ -1,15 +1,14 @@
 package endpoints
 
 import (
-	"github.com/gofiber/fiber/v2"
-
 	"Moddormy_backend/endpoints/upload"
+	"github.com/gofiber/fiber/v2"
 )
 
-func Load(app *fiber.App) {
-	api := app.Group("api/")
+func Register(router fiber.Router) {
 
-	uploadGroup := api.Group("upload/")
-	uploadGroup.Post("base", upload.Base64)
+	uploadGroup := router.Group("upload/")
+	uploadGroup.Post("dorm", upload.Dorming)
+	uploadGroup.Post("room", upload.Rooming)
 
 }

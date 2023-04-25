@@ -13,22 +13,7 @@ import (
 	"os"
 )
 
-package upload
-
-import (
-"Moddormy_backend/loaders/mysql"
-"Moddormy_backend/loaders/mysql/model"
-"Moddormy_backend/types/payload"
-"Moddormy_backend/types/response"
-"Moddormy_backend/utils/text"
-"fmt"
-"github.com/gofiber/fiber/v2"
-"image"
-"image/jpeg"
-"os"
-)
-
-func MeAvatarPostHandler(c *fiber.Ctx) error {
+func Rooming(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	//token := c.Locals("user").(*jwt.Token)
 	//claims := token.Claims.(*common.UserClaim)
@@ -90,20 +75,23 @@ func MeAvatarPostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	fileName := fmt.Sprintf("/images/%s.jpeg", fileSalt)
 	// * Update user record
-	if _, err := mysql.Gorm.Model(&model.DormImage{}).Where("dorm_id = ?", body).Update(
-		"file_name",fmt.Sprintf("/files/%s.jpeg"
-	, fileSalt)
-); err != nil {
-		return &responder.GenericError{
-		Message: "Unable to fetch user account",
-		Err:     err,
+	roomImage := &model.RoomImage{
+		RoomId:    body.RoomId,
+		Room:      nil,
+		FileName:  &fileName,
+		UpdatedAt: nil,
 	}
+	if result := mysql.Gorm.Create(roomImage); result.Error != nil {
+		return &response.GenericError{
+			Message: "Unable to fetch room image",
+			Err:     result.Error,
+		}
 	}
 
 	return c.JSON(&response.InfoResponse{
 		Success: true,
-		Message:    "Updated image already",
+		Message: "Updated image already",
 	})
 }
-

@@ -4,30 +4,23 @@ import (
 	"os"
 	"path/filepath"
 
-	"Moddormy_backend/utils/config"
-	"Moddormy_backend/utils/fs"
-	"Moddormy_backend/utils/wrapper"
+	"github.com/sirupsen/logrus"
+
+	"Moddormy_backend/utils/logger"
 )
 
-var Dir string
+var RootDir string
 
 func Init() {
-	Dir = config.C.Path
-
 	// Convert directory to absolute path
-	if dir, err := filepath.Abs(Dir); err != nil {
-		wrapper.Fatal("UNKNOWN STORAGE PATH")
+	if dir, err := filepath.Abs("./images"); err != nil {
+		logger.Log(logrus.Fatal, "UNKNOWN STORAGE PATH")
 	} else {
-		Dir = dir
+		RootDir = dir
 	}
 
 	// Confirm directory is existed
-	if _, err := os.Stat(Dir); os.IsNotExist(err) {
-		wrapper.Fatal("NONEXISTENT STORAGE PATH")
-	}
-
-	// Confirm directory is writable
-	if !fs.Writable(Dir) {
-		wrapper.Fatal("UNWRITABLE STORAGE PATH")
+	if _, err := os.Stat(RootDir); os.IsNotExist(err) {
+		logger.Log(logrus.Fatal, "NONEXISTENT STORAGE PATH")
 	}
 }

@@ -1,17 +1,15 @@
 package fiber
 
 import (
+	"Moddormy_backend/types/response"
 	"Moddormy_backend/utils/config"
+	"Moddormy_backend/utils/logger"
+	"github.com/sirupsen/logrus"
 	"time"
 
-	"Moddormy_backend/loaders/storage"
 	"github.com/gofiber/fiber/v2"
 
-	"Moddormy_backend/types"
-
 	"Moddormy_backend/endpoints"
-	//"github.com/sirupsen/logrus"
-	"Moddormy_backend/utils/wrapper"
 )
 
 var app *fiber.App
@@ -28,31 +26,26 @@ func Init() {
 	})
 
 	// Register root endpoint
-	//app.All("/", func(c *fiber.Ctx) error {
-	//	return c.JSON(response.InfoResponse{
-	//		Success: true,
-	//		Message: "Moddormy_API_ROOT",
-	//	})
-	//})
+	app.All("/", func(c *fiber.Ctx) error {
+		return c.JSON(response.InfoResponse{
+			Success: true,
+			Message: "Moddormy_API_ROOT",
+		})
+	})
 
 	// Register API endpoints
-	//apiGroup := app.Group("api/")
+	apiGroup := app.Group("api/")
 
 	//apiGroup.Use(middlewares.Limiter)
 	//apiGroup.Use(middlewares.Cors)
 	//apiGroup.Use(middlewares.Recover)
-	app.Static("/files", storage.Dir)
 
-	//endpoints.Register(apiGroup)
+	endpoints.Register(apiGroup)
 
 	//apiGroup.Get("/hello", func(c *fiber.Ctx) error {
 	//	return c.SendString("Hello, World 👋!")
 	//})
-	app.Get("/", func(c *fiber.Ctx) error {
-		return &types.PassError{Message: "API_ROOT"}
-	})
-
-	endpoints.Load(app)
+	app.Static("images/", "./images")
 
 	// Register not found handler
 	app.Use(notfoundHandler)
@@ -60,7 +53,7 @@ func Init() {
 	// Startup
 	err := app.Listen(config.C.BackAddress)
 	if err != nil {
-		wrapper.Fatal(err.Error())
+		logger.Log(logrus.Fatal, err.Error())
 	}
 }
 

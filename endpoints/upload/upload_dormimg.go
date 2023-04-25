@@ -13,17 +13,17 @@ import (
 	"os"
 )
 
-func MeAvatarPostHandler(c *fiber.Ctx) error {
+func Dorming(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	//token := c.Locals("user").(*jwt.Token)
 	//claims := token.Claims.(*common.UserClaim)
 
 	// * Parse body
-	var body *payload.UploadDorm
-	if err := c.BodyParser(&body); err != nil {
+	body := new(payload.UploadDorm)
+	if err := c.BodyParser(body); err != nil {
 		return &response.GenericError{
 			Message: "Unable to parse body",
-			Err:     nil,
+			Err:     err,
 		}
 	}
 
@@ -74,20 +74,24 @@ func MeAvatarPostHandler(c *fiber.Ctx) error {
 			Err:     err,
 		}
 	}
+	fileName := fmt.Sprintf("/images/%s.jpeg", fileSalt)
 
-	// * Update user record
-	if _, err := mysql.Gorm.Model(&model.DormImage{}).Update(
-		"file_name",fmt.Sprintf("/files/%s.jpeg"
-	, fileSalt)
-); err != nil {
-		return &responder.GenericError{
-		Message: "Unable to fetch user account",
-		Err:     err,
+	DormImage := &model.DormImage{
+		DormId:    body.DormId,
+		Dorm:      nil,
+		FileName:  &fileName,
+		UpdatedAt: nil,
 	}
+	// * Update user record
+	if result := mysql.Gorm.Create(DormImage); result.Error != nil {
+		return &response.GenericError{
+			Message: "Unable to fetch dorm image",
+			Err:     result.Error,
+		}
 	}
 
 	return c.JSON(&response.InfoResponse{
 		Success: true,
-		Message:    "Updated image already",
+		Message: "Updated image already",
 	})
 }
