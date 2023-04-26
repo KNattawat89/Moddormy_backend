@@ -57,7 +57,9 @@ func Dorming(c *fiber.Ctx) error {
 	// * Assign file path
 	//filePath := path.Join(storage.Dir)
 	fileSalt := *text.GenerateString(text.GenerateStringSet.Num, 6)
+	//fileName := "" + strconv.FormatUint(body.DormId, 10)
 
+	print(fileSalt)
 	// * Save image to file
 	savingFile, err := os.Create("./images/" + fileSalt + ".jpeg")
 	if err != nil {
