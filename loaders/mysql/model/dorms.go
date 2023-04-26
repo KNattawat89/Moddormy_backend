@@ -7,6 +7,7 @@ type Dorm struct {
 	DormName       *string    `json:"dorm_name" gorm:"not null"`
 	OwnerId        *uint64    `gorm:"primaryKey;not null"`
 	Owner          *User      `gorm:"foreignKey:OwnerId;references:Id;not null"`
+	CoverImage     *string    `json:"cover_image" gorm:"not null"`
 	HouseNumber    *string    `json:"house_number" gorm:"not null"`
 	Street         *string    `json:"street"`
 	Soi            *string    `json:"soi"`
@@ -19,7 +20,6 @@ type Dorm struct {
 	ElectricPrice  *float32   `json:"electric_price" gorm:"not null"`
 	WaterPrice     *float32   `json:"water_price" gorm:"not null"`
 	Other          *string    `json:"other" gorm:"not null"`
-	LastUpdate     *time.Time `json:"last_update" gorm:"not null"`
 	Distant        *float32   `json:"distant" gorm:"not null"` // km
 	Pet            *bool      `json:"pet" gorm:"not null"`
 	SmokeFree      *bool      `json:"smoke_free" gorm:"not null"`

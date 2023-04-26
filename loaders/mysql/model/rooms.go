@@ -7,6 +7,7 @@ type Room struct {
 	DormId      *uint64    `json:"dorm_id" gorm:"primaryKey;not null"`
 	Dorm        *Dorm      `json:"dorm" gorm:"foreignKey:DormId;references:Id;not null"`
 	RoomName    *string    `json:"room_name" gorm:"not null"`
+	CoverImage  *string    `json:"cover_image" gorm:"not null"`
 	Price       *float64   `json:"price" gorm:"not null"`
 	Desc        *string    `json:"desc" gorm:"not null"`
 	Size        *string    `json:"size" gorm:"not null"`
