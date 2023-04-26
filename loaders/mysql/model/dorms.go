@@ -31,5 +31,6 @@ type Dorm struct {
 	KeyCard        *bool      `json:"key_card" gorm:"not null"`
 	CCTV           *bool      `json:"cctv" gorm:"not null"`
 	SecurityGuard  *bool      `json:"security_guard" gorm:"not null"`
+	CreatedAt      *time.Time `json:"created_at" gorm:"not null"`
 	UpdatedAt      *time.Time `json:"updated_at" gorm:"not null"`
 }
