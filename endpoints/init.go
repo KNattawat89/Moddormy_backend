@@ -9,6 +9,7 @@ import (
 	"Moddormy_backend/endpoints/profile"
 	"Moddormy_backend/endpoints/review"
 	"Moddormy_backend/endpoints/upload"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -38,5 +39,7 @@ func Register(router fiber.Router) {
 
 	reviewGroup := router.Group("/review")
 	reviewGroup.Get("/test", review.Test)
+	reviewGroup.Get("/getDormReview", review.GetDormReview)
+	reviewGroup.Post("/addDormReview", review.AddDormReview)
 
 }
