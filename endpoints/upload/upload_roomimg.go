@@ -27,68 +27,66 @@ func Rooming(c *fiber.Ctx) error {
 		}
 	}
 
-	// * Parse multipart file parameter
-	fileHeader, err := c.FormFile("image")
-	if err != nil {
-		return &response.GenericError{
-			Message: "image is unreadable",
-			Err:     err,
+	form, _ := c.MultipartForm()
+	files := form.File["image"]
+	for _, file := range files {
+		fileHeader, err := file.Open()
+		if err != nil {
+			return &response.GenericError{
+				Message: "Cannot open image",
+				Err:     err,
+			}
+		}
+		defer fileHeader.Close()
+
+		// * Decode image
+		img, _, err := image.Decode(fileHeader)
+		if err != nil {
+			return &response.GenericError{
+				Message: "unable to decode file as image",
+				Err:     err,
+			}
+		}
+
+		// * Assign file path
+		fileSalt := *text.GenerateString(text.GenerateStringSet.Num, 6)
+
+		// * Save image to file
+		savingFile, err := os.Create("./images/" + fileSalt + ".jpeg")
+		if err != nil {
+			return &response.GenericError{
+				Message: "Unable to create an image file",
+				Err:     err,
+			}
+		}
+		defer savingFile.Close()
+
+		if err := jpeg.Encode(savingFile, img, nil); err != nil {
+			return &response.GenericError{
+				Message: "Unable to save an image file",
+				Err:     err,
+			}
+		}
+
+		fileName := fmt.Sprintf("/images/%s.jpeg", fileSalt)
+		// * Update user record
+		roomImage := &model.RoomImage{
+			RoomId:    body.RoomId,
+			Room:      nil,
+			FileName:  &fileName,
+			UpdatedAt: nil,
+		}
+		if result := mysql.Gorm.Create(roomImage); result.Error != nil {
+			return &response.GenericError{
+				Message: "Unable to fetch room image",
+				Err:     result.Error,
+			}
 		}
 	}
+
+	// * Parse multipart file parameter
 
 	// * Open multipart to file
-	file, err := fileHeader.Open()
-	if err != nil {
-		return &response.GenericError{
-			Message: "Cannot open image",
-			Err:     err,
-		}
-	}
-
-	// * Decode image
-	img, _, err := image.Decode(file)
-	if err != nil {
-		return &response.GenericError{
-			Message: "unable to decode file as image",
-			Err:     err,
-		}
-	}
-
-	// * Assign file path
-	//filePath := path.Join(storage.Dir)
-	fileSalt := *text.GenerateString(text.GenerateStringSet.Num, 6)
-
-	// * Save image to file
-	savingFile, err := os.Create("./images/" + fileSalt + ".jpeg")
-	if err != nil {
-		return &response.GenericError{
-			Message: "Unable to create an image file",
-			Err:     err,
-		}
-	}
-	defer savingFile.Close()
-
-	if err := jpeg.Encode(savingFile, img, nil); err != nil {
-		return &response.GenericError{
-			Message: "Unable to save an image file",
-			Err:     err,
-		}
-	}
-
-	fileName := fmt.Sprintf("/images/%s.jpeg", fileSalt)
-	// * Update user record
-	roomImage := &model.RoomImage{
-		RoomId:    body.RoomId,
-		Room:      nil,
-		FileName:  &fileName,
-		UpdatedAt: nil,
-	}
-	if result := mysql.Gorm.Create(roomImage); result.Error != nil {
-		return &response.GenericError{
-			Message: "Unable to fetch room image",
-			Err:     result.Error,
-		}
-	}
 
 	return c.JSON(&response.InfoResponse{
 		Success: true,
