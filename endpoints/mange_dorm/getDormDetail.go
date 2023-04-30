@@ -16,20 +16,12 @@ func GetDormDetail(c *fiber.Ctx) error {
 			Err:     nil,
 		}
 	}
+	var dorm []model.Dorm
 
-	var dorm model.Dorm
-
-	if result := mysql.Gorm.Where("dorm_id = ?", dormId).First(&dorm); result.Error != nil {
+	if result := mysql.Gorm.Where("Id  = ?", dormId).First(&dorm); result.Error != nil {
 		return &response.GenericError{
 			Message: "Unable to get dorm",
 			Err:     result.Error,
-		}
-	}
-
-	if dorm.DormId == "" {
-		return &response.GenericError{
-			Message: "No dorm found for dormId",
-			Err:     nil,
 		}
 	}
 

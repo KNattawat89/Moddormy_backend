@@ -29,7 +29,8 @@ func Register(router fiber.Router) {
 	authGroup.Get("/test", authentication.Test)
 
 	mangeDormGroup := router.Group("/manage-dorm")
-	mangeDormGroup.Get("/test", mange_dorm.Test)
+	mangeDormGroup.Get("/getDormDetail", mange_dorm.GetDormDetail)
+	mangeDormGroup.Post("/postDorm", mange_dorm.PostDorm)
 
 	mangeRoomGroup := router.Group("/manage-room")
 	mangeRoomGroup.Get("/test", mange_room.Test)

@@ -3,6 +3,7 @@ package mange_dorm
 import (
 	"Moddormy_backend/loaders/mysql"
 	"Moddormy_backend/loaders/mysql/model"
+	"Moddormy_backend/types/payload"
 	"Moddormy_backend/types/response"
 
 	"github.com/gofiber/fiber/v2"
@@ -35,43 +36,41 @@ func PostDorm(c *fiber.Ctx) error {
 	}
 
 	Dorm := &model.Dorm{
-		DormId: body.DormId,
-		DormName: body.DormName,
-		OwnerId: body.UserId,
-		CoverImage: body.CoverImage,
-		HouseNumber: body.HouseNumber,
-		Street: body.Street,
-		Soi: body.Soi,
-		SubDistrict: body.SubDistrict,
-		District: body.District,
-		City: body.City,
-		Zipcode: body.Zipcode,
-		Desc : body.Desc,
-		AdvancePayment : body.AdvancePayment,
-		ElectricPrice : body.ElectricPrice,
-		WaterPrice : body.WaterPrice,
-		Other : body.Other,
-		Distant : body.Distant,
-		Pet : body.Pet,
-		SmokeFree : body.SmokeFree,
-		Parking : body.Parking,
-		Lift : body.Lift,
-		Pool : body.Pool,
-		Fitness : body.Fitness,
-		Wifi : body.Wifi,
-		KeyCard : body.KeyCard,
-		CCTV : body.CCTV,
-		SecurityGuard : body.SecurityGuard,
-		CreateAt: nil
+
+		DormName:       body.DormName,
+		OwnerId:        body.UserId,
+		CoverImage:     body.CoverImage,
+		HouseNumber:    body.HouseNumber,
+		Street:         body.Street,
+		Soi:            body.Soi,
+		SubDistrict:    body.SubDistrict,
+		District:       body.District,
+		City:           body.City,
+		Zipcode:        body.Zipcode,
+		Desc:           body.Desc,
+		AdvancePayment: body.AdvancePayment,
+		ElectricPrice:  body.ElectricPrice,
+		WaterPrice:     body.WaterPrice,
+		Other:          body.Other,
+		Distant:        body.Distant,
+		Pet:            body.Pet,
+		SmokeFree:      body.SmokeFree,
+		Parking:        body.Parking,
+		Lift:           body.Lift,
+		Pool:           body.Pool,
+		Fitness:        body.Fitness,
+		Wifi:           body.Wifi,
+		KeyCard:        body.KeyCard,
+		CCTV:           body.CCTV,
+		SecurityGuard:  body.SecurityGuard,
 	}
 
-	if result := mysql.Gorm.Create(&dorm); result.Error != nil {
+	if result := mysql.Gorm.Create(&Dorm); result.Error != nil {
 		return &response.GenericError{
 			Message: "Unable to create dorm",
 			Err:     result.Error,
 		}
 	}
 
-	return c.JSON(dorm)
+	return c.JSON(Dorm)
 }
-	
