@@ -41,5 +41,6 @@ func Register(router fiber.Router) {
 	reviewGroup.Get("/test", review.Test)
 	reviewGroup.Get("/getDormReview", review.GetDormReview)
 	reviewGroup.Post("/addDormReview", review.AddDormReview)
+	reviewGroup.Delete("/deleteDormReview", review.DeleteDormReview)
 
 }

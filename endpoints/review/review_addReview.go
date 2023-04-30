@@ -5,7 +5,8 @@ import (
 	"Moddormy_backend/loaders/mysql/model"
 	"Moddormy_backend/types/payload"
 	"Moddormy_backend/types/response"
-	//"time"
+
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -51,21 +52,21 @@ func AddDormReview(c *fiber.Ctx) error {
 	// 	print("error arai wa")
 	// }
 
-	//now := time.Now()
-	//
-	//// Format the date and time as a string in the required format for MySQL
-	//createAt := now.Format("2006-01-02 15:04:05")
-	//
-	//// Parse the createAt string into a time.Time value
-	//createAtTime, err := time.Parse("2006-01-02 15:04:05", createAt)
-	//if err != nil {
-	//	// handle error
-	//}
+	now := time.Now()
+
+	// Format the date and time as a string in the required format for MySQL
+	createAt := now.Format("2006-01-02 15:04:05")
+
+	// Parse the createAt string into a time.Time value
+	createAtTime, err := time.Parse("2006-01-02 15:04:05", createAt)
+	if err != nil {
+		// handle error
+	}
 	DormReview := &model.Review{
-		UserId: body.UserId,
-
-		DormId: body.DormId,
-
+		UserId:         body.UserId,
+		User:           user,
+		DormId:         body.DormId,
+		Dorm:           dorm,
 		Review:         body.Review,
 		RatingPrice:    body.RatingPrice,
 		RatingLocation: body.RatingLocation,
@@ -73,7 +74,7 @@ func AddDormReview(c *fiber.Ctx) error {
 		RatingSanitary: body.RatingSanitary,
 		RatingSecurity: body.RatingSecurity,
 		RatingOverall:  body.RatingOverall,
-		CreateAt:       nil,
+		CreateAt:       &createAtTime,
 	}
 
 	if result := mysql.Gorm.Create(&DormReview); result.Error != nil {
