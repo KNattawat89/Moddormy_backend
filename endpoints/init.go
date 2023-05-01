@@ -32,6 +32,7 @@ func Register(router fiber.Router) {
 	mangeDormGroup.Get("/getDormDetail", mange_dorm.GetDormDetail)
 	mangeDormGroup.Post("/postDorm", mange_dorm.PostDorm)
 	mangeDormGroup.Delete("/deleteDorm", mange_dorm.DeleteDorm)
+	mangeDormGroup.Get("/getAllDorm", mange_dorm.GetAllDorm)
 
 	mangeRoomGroup := router.Group("/manage-room")
 	mangeRoomGroup.Get("/GetRoomDetail", mange_room.GetRoomDetail)
