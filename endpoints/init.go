@@ -31,10 +31,12 @@ func Register(router fiber.Router) {
 	mangeDormGroup := router.Group("/manage-dorm")
 	mangeDormGroup.Get("/getDormDetail", mange_dorm.GetDormDetail)
 	mangeDormGroup.Post("/postDorm", mange_dorm.PostDorm)
+	mangeDormGroup.Delete("/deleteDorm", mange_dorm.DeleteDorm)
 
 	mangeRoomGroup := router.Group("/manage-room")
 	mangeRoomGroup.Get("/GetRoomDetail", mange_room.GetRoomDetail)
 	mangeRoomGroup.Post("/postRoom", mange_room.PostRoom)
+	mangeRoomGroup.Delete("/deleteRoom", mange_room.DeleteRoom)
 
 	profileGroup := router.Group("/profile")
 	profileGroup.Get("/test", profile.Test)
