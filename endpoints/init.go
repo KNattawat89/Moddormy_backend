@@ -33,7 +33,8 @@ func Register(router fiber.Router) {
 	mangeDormGroup.Post("/postDorm", mange_dorm.PostDorm)
 
 	mangeRoomGroup := router.Group("/manage-room")
-	mangeRoomGroup.Get("/test", mange_room.Test)
+	mangeRoomGroup.Get("/GetRoomDetail", mange_room.GetRoomDetail)
+	mangeRoomGroup.Post("/postRoom", mange_room.PostRoom)
 
 	profileGroup := router.Group("/profile")
 	profileGroup.Get("/test", profile.Test)
