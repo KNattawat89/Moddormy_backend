@@ -21,6 +21,7 @@ func Register(router fiber.Router) {
 
 	homeGroup := router.Group("/home")
 	homeGroup.Get("/test", home.Test)
+	homeGroup.Get("/getDormAll", home.GetAllDorm)
 
 	favoriteGroup := router.Group("/fav")
 	favoriteGroup.Get("/test", favorite.Test)
