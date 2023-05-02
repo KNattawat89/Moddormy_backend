@@ -1,4 +1,4 @@
-package mange_dorm
+package home
 
 import (
 	"Moddormy_backend/loaders/mysql"
