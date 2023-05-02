@@ -53,7 +53,6 @@ func PostFav (c *fiber.Ctx) error {
         DormId:       body.DormId,
         UserId:        body.UserId,
         UpdatedAt:        &updatedAtTime,
-        IsFav:         body.IsFav,
     }
 
     if result := mysql.Gorm.Create(&Favorite); result.Error != nil {
