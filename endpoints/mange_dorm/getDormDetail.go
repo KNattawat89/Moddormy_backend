@@ -18,29 +18,33 @@ func GetDormDetail(c *fiber.Ctx) error {
 			Err:     nil,
 		}
 	}
-	var room model.Room
+	
 
-	if result := mysql.Gorm.Where("dorm_id  = ?", dormId).Find(&room); result.Error != nil {
+	if result := mysql.Gorm.Where("Id  = ?", dormId).First(&dorm); result.Error != nil {
 		return &response.GenericError{
-			Message: "Unable to get room",
+			Message: "Unable to get dorm",
 			Err:     result.Error,
 		}
 	}
+	return c.JSON(dorm)
+}
 
-	// if result := mysql.Gorm.Where("Id  = ?", dormId).First(&dorm); result.Error != nil {
+
+	// var room model.Room
+
+	// if result := mysql.Gorm.Where("dorm_id  = ?", dormId).Find(&room); result.Error != nil {
 	// 	return &response.GenericError{
-	// 		Message: "Unable to get dorm",
+	// 		Message: "Unable to get room",
 	// 		Err:     result.Error,
 	// 	}
 	// }
-
-	body := new(model.Dorm)
-	if err := c.BodyParser(body); err != nil {
-		return &response.GenericError{
-			Message: "Unable to parse body",
-			Err:     err,
-		}
-	}
+	// body := new(model.Dorm)
+	// if err := c.BodyParser(body); err != nil {
+	// 	return &response.GenericError{
+	// 		Message: "Unable to parse body",
+	// 		Err:     err,
+	// 	}
+	// }
 
 	// Dorm := &model.Dorm{
 
@@ -73,5 +77,3 @@ func GetDormDetail(c *fiber.Ctx) error {
 	// 	Rooms:          body.Rooms,
 	// }
 
-	return c.JSON(dorm)
-}
