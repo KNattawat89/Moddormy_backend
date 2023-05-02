@@ -29,7 +29,7 @@ func Register(router fiber.Router) {
 	favoriteGroup.Delete("/deleteFav", favorite.DeleteFav)
 
 	authGroup := router.Group("/auth")
-	authGroup.Get("/test", authentication.Test)
+	authGroup.Post("/register", authentication.Register)
 
 	mangeDormGroup := router.Group("/manage-dorm")
 	mangeDormGroup.Get("/getDormDetail", mange_dorm.GetDormDetail)
