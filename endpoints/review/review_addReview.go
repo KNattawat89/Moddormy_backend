@@ -62,6 +62,10 @@ func AddDormReview(c *fiber.Ctx) error {
 	if err != nil {
 		// handle error
 	}
+
+	//แก้ชั่วคราว เพราะเปลี่ยน overall -> float
+	overall := float32(*body.RatingOverall)
+
 	DormReview := &model.Review{
 		UserId:         body.UserId,
 		User:           user,
@@ -73,7 +77,7 @@ func AddDormReview(c *fiber.Ctx) error {
 		RatingFacility: body.RatingFacility,
 		RatingSanitary: body.RatingSanitary,
 		RatingSecurity: body.RatingSecurity,
-		RatingOverall:  body.RatingOverall,
+		RatingOverall:  &overall,
 		CreateAt:       &createAtTime,
 	}
 
