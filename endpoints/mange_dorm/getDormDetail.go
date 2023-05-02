@@ -9,6 +9,8 @@ import (
 )
 
 func GetDormDetail(c *fiber.Ctx) error {
+	var dorm []model.Dorm
+
 	dormId := c.Query("dormId")
 	if dormId == "" {
 		return &response.GenericError{
@@ -16,14 +18,60 @@ func GetDormDetail(c *fiber.Ctx) error {
 			Err:     nil,
 		}
 	}
-	var dorm []model.Dorm
+	var room model.Room
 
-	if result := mysql.Gorm.Where("Id  = ?", dormId).First(&dorm); result.Error != nil {
+	if result := mysql.Gorm.Where("dorm_id  = ?", dormId).Find(&room); result.Error != nil {
 		return &response.GenericError{
-			Message: "Unable to get dorm",
+			Message: "Unable to get room",
 			Err:     result.Error,
 		}
 	}
+
+	// if result := mysql.Gorm.Where("Id  = ?", dormId).First(&dorm); result.Error != nil {
+	// 	return &response.GenericError{
+	// 		Message: "Unable to get dorm",
+	// 		Err:     result.Error,
+	// 	}
+	// }
+
+	body := new(model.Dorm)
+	if err := c.BodyParser(body); err != nil {
+		return &response.GenericError{
+			Message: "Unable to parse body",
+			Err:     err,
+		}
+	}
+
+	// Dorm := &model.Dorm{
+
+	// 	DormName:       body.DormName,
+	// 	OwnerId:        body.OwnerId,
+	// 	CoverImage:     body.CoverImage,
+	// 	HouseNumber:    body.HouseNumber,
+	// 	Street:         body.Street,
+	// 	Soi:            body.Soi,
+	// 	SubDistrict:    body.SubDistrict,
+	// 	District:       body.District,
+	// 	City:           body.City,
+	// 	Zipcode:        body.Zipcode,
+	// 	Desc:           body.Desc,
+	// 	AdvancePayment: body.AdvancePayment,
+	// 	ElectricPrice:  body.ElectricPrice,
+	// 	WaterPrice:     body.WaterPrice,
+	// 	Other:          body.Other,
+	// 	Distant:        body.Distant,
+	// 	Pet:            body.Pet,
+	// 	SmokeFree:      body.SmokeFree,
+	// 	Parking:        body.Parking,
+	// 	Lift:           body.Lift,
+	// 	Pool:           body.Pool,
+	// 	Fitness:        body.Fitness,
+	// 	Wifi:           body.Wifi,
+	// 	KeyCard:        body.KeyCard,
+	// 	CCTV:           body.CCTV,
+	// 	SecurityGuard:  body.SecurityGuard,
+	// 	Rooms:          body.Rooms,
+	// }
 
 	return c.JSON(dorm)
 }
