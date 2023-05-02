@@ -28,6 +28,7 @@ func GetAllDorm(c *fiber.Ctx) error {
 		//random 1-5 rate เดี๋ยวเปลี่ยน
 		rand.Seed(time.Now().UnixNano())
 		rating := rand.Intn(5) + 1
+		rating2 := float32(rating)
 		coverImage, _ := url.JoinPath(config.C.URL, *dorm.CoverImage)
 		var prices []float64
 		for _, room := range dorm.Rooms {
@@ -40,7 +41,7 @@ func GetAllDorm(c *fiber.Ctx) error {
 			DormId:     dorm.Id,
 			DormName:   dorm.DormName,
 			CoverImage: &coverImage,
-			Rating:     &rating,
+			Rating:     &rating2,
 			MinPrice:   &prices[0],
 			MaxPrice:   &prices[len(prices)-1],
 		}, nil
