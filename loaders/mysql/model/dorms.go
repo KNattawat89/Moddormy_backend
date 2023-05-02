@@ -33,4 +33,5 @@ type Dorm struct {
 	SecurityGuard  *bool      `json:"security_guard" gorm:"not null"`
 	CreatedAt      *time.Time `json:"created_at" gorm:"not null"`
 	UpdatedAt      *time.Time `json:"updated_at" gorm:"not null"`
+	Rooms          []*Room    `json:"rooms" gorm:"foreignKey:DormId;references:Id"`
 }

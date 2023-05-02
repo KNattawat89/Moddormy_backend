@@ -25,6 +25,8 @@ func Register(router fiber.Router) {
 
 	favoriteGroup := router.Group("/fav")
 	favoriteGroup.Get("/test", favorite.Test)
+	favoriteGroup.Post("/postFav", favorite.PostFav)
+	favoriteGroup.Delete("/deleteFav", favorite.DeleteFav)
 
 	authGroup := router.Group("/auth")
 	authGroup.Get("/test", authentication.Test)
@@ -42,6 +44,7 @@ func Register(router fiber.Router) {
 
 	profileGroup := router.Group("/profile")
 	profileGroup.Get("/test", profile.Test)
+	profileGroup.Get("/getProfile", profile.GetProfile)
 
 	reviewGroup := router.Group("/review")
 	reviewGroup.Get("/test", review.Test)
