@@ -21,7 +21,7 @@ func Register(router fiber.Router) {
 
 	homeGroup := router.Group("/home")
 	homeGroup.Get("/test", home.Test)
-	homeGroup.Get("/getDormAll", home.GetDormAll)
+	// homeGroup.Get("/getDormAll", home.GetDormAll)
 
 	favoriteGroup := router.Group("/fav")
 	favoriteGroup.Get("/test", favorite.Test)
@@ -37,6 +37,7 @@ func Register(router fiber.Router) {
 	mangeDormGroup.Delete("/deleteDorm", mange_dorm.DeleteDorm)
 	mangeDormGroup.Get("/getDormImage", mange_dorm.GetDormImage)
 	mangeDormGroup.Get("/getAllDorm", mange_dorm.GetAllDorm)
+	mangeDormGroup.Put("/editDorm", mange_dorm.UpdateDorm)
 
 	mangeRoomGroup := router.Group("/manage-room")
 	mangeRoomGroup.Get("/getRoomDetail", mange_room.GetRoomDetail)
