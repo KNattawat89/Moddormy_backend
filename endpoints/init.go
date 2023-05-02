@@ -45,6 +45,7 @@ func Register(router fiber.Router) {
 	mangeRoomGroup.Delete("/deleteRoom", mange_room.DeleteRoom)
 	mangeRoomGroup.Get("/getRoomImage", mange_room.GetRoomImage)
 	mangeRoomGroup.Get("/getDormRoom", mange_room.GetDormRoom)
+	mangeRoomGroup.Put("/editRoom", mange_room.UpdateRoom)
 
 	profileGroup := router.Group("/profile")
 	profileGroup.Get("/test", profile.Test)
