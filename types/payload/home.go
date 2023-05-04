@@ -6,6 +6,6 @@ type Home struct {
 	CoverImage    	*string  `form:"coverImage"`
 	MinPrice		*float64 `form:"min_price"`
 	MaxPrice		*float64 `form:"max_price"`
-	OverallRate		*float64 `form:"overall_rate"`
+	OverallRate		*float32 `form:"overall_rate"`
 	FavStatus 		*bool    `form:"fav_status"`
 }
