@@ -9,7 +9,6 @@ type User struct {
 	Id           *uint64    `gorm:"primaryKey;not null;index:idx_id" json:"id"`
 	ProfileImage *string    `json:"profile_image"`
 	UserName     *string    `gorm:"type:VARCHAR(255);not null" json:"username"`
-	Password     *string    `gorm:"type:VARCHAR(255); not null" json:"password"`
 	Fname        *string    `gorm:"type:VARCHAR(255);not null" json:"fname"`
 	Lname        *string    `gorm:"type:VARCHAR(255);not null" json:"lname"`
 	Email        *string    `gorm:"type:VARCHAR(255); index:email,unique; not null" json:"email"`
