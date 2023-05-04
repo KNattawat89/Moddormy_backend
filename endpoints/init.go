@@ -21,7 +21,10 @@ func Register(router fiber.Router) {
 
 	homeGroup := router.Group("/home")
 	homeGroup.Get("/test", home.Test)
-	// homeGroup.Get("/getDormAll", home.GetDormAll)
+	// case user already sign in bc it has fav status
+	homeGroup.Get("/getDormAll", home.GetDormAll)
+	// case user does not sign in yet
+	homeGroup.Get("/getAllDorm", home.GetAllDorm)
 
 	favoriteGroup := router.Group("/fav")
 	favoriteGroup.Get("/test", favorite.Test)
@@ -37,7 +40,6 @@ func Register(router fiber.Router) {
 	mangeDormGroup.Post("/postDorm", mange_dorm.PostDorm)
 	mangeDormGroup.Delete("/deleteDorm", mange_dorm.DeleteDorm)
 	mangeDormGroup.Get("/getDormImage", mange_dorm.GetDormImage)
-	mangeDormGroup.Get("/getAllDorm", mange_dorm.GetAllDorm)
 	mangeDormGroup.Put("/editDorm", mange_dorm.UpdateDorm)
 
 	mangeRoomGroup := router.Group("/manage-room")

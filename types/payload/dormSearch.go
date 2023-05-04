@@ -7,5 +7,4 @@ type DormSearch struct {
 	Rating     *float32 `json:"rating"`
 	MinPrice   *float64 `json:"min_price"`
 	MaxPrice   *float64 `json:"max_price"`
-	//IsFav      *bool   `json:"is_fav"`
 }
