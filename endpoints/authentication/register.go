@@ -20,7 +20,6 @@ func Register(c *fiber.Ctx) error {
 		Id:           nil,
 		ProfileImage: nil,
 		UserName:     account.UserName,
-		Password:     account.PassWord,
 		Fname:        account.FirstName,
 		Lname:        account.LastName,
 		Email:        account.Email,
