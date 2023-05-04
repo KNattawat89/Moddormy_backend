@@ -7,46 +7,55 @@ import (
 	"Moddormy_backend/types/response"
 	"Moddormy_backend/utils/config"
 	"Moddormy_backend/utils/value"
-	"math/rand"
+	"github.com/gofiber/fiber/v2"
 	"net/url"
 	"sort"
-	"time"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 func GetAllDorm(c *fiber.Ctx) error {
 	var dorms []model.Dorm
-	if result := mysql.Gorm.Preload("Rooms").Find(&dorms); result.Error != nil {
+	if result := mysql.Gorm.Preload("Rooms").Preload("Reviews").Find(&dorms); result.Error != nil {
 		return &response.GenericError{
 			Message: "Unable to get all dorm",
 			Err:     result.Error,
 		}
 	}
 
-	mappedDormName, _ := value.Iterate(dorms, func(dorm model.Dorm) (*payload.DormSearch, error) {
-		//random 1-5 rate เดี๋ยวเปลี่ยน
-		rand.Seed(time.Now().UnixNano())
-		rating := rand.Intn(5) + 1
-		rating2 := float32(rating)
-		coverImage, _ := url.JoinPath(config.C.URL, *dorm.CoverImage)
+	mappedDorm, _ := value.Iterate(dorms, func(dorm model.Dorm) (*payload.DormSearch, error) {
+		//price
 		var prices []float64
 		for _, room := range dorm.Rooms {
 			prices = append(prices, *room.Price)
 		}
 		sort.Float64sAreSorted(prices)
+		//rate
+		var overallRates []float32
+		for _, rate := range dorm.Reviews {
+			overallRates = append(overallRates, *rate.RatingOverall)
+		}
+		var sum float32
+		var finalRate float32
+		if len(overallRates) > 0 {
+			for i := 0; i < len(overallRates); i++ {
+				sum = sum + overallRates[i]
+			}
+			finalRate = sum / float32(len(overallRates))
+		} else {
+			finalRate = 0
+		}
+		//coverimage
+		coverImage, _ := url.JoinPath(config.C.ProductionURL, *dorm.CoverImage)
 
-		//fmt.Println(prices)
 		return &payload.DormSearch{
 			DormId:     dorm.Id,
 			DormName:   dorm.DormName,
 			CoverImage: &coverImage,
-			Rating:     &rating2,
 			MinPrice:   &prices[0],
 			MaxPrice:   &prices[len(prices)-1],
+			Rating:     &finalRate,
 		}, nil
 	})
 
-	return c.JSON(response.NewResponse(mappedDormName))
+	return c.JSON(response.NewResponse(mappedDorm))
 	//return c.JSON(dorms)
 }
