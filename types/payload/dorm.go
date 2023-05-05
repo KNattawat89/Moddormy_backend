@@ -3,7 +3,7 @@ package payload
 type Dorm struct {
 	DormId         *uint64  `form:"dormId"`
 	DormName       *string  `form:"dormName"`
-	UserId         *uint64  `form:"userId"`
+	UserId         *string  `form:"userId"`
 	CoverImage     *string  `form:"coverImage"`
 	HouseNumber    *string  `form:"houseNumber"`
 	Street         *string  `form:"street"`
@@ -14,10 +14,10 @@ type Dorm struct {
 	Zipcode        *int16   `form:"zipcode"`
 	Desc           *string  `form:"desc"`
 	AdvancePayment *int     `form:"advancePayment"`
-	ElectricPrice  *float32 `form:"electricPrice"`
-	WaterPrice     *float32 `form:"waterPrice"`
+	ElectricPrice  *float64 `form:"electricPrice"`
+	WaterPrice     *float64 `form:"waterPrice"`
 	Other          *string  `form:"other"`
-	Distant        *float32 `form:"distant"`
+	Distant        *float64 `form:"distant"`
 	Pet            *bool    `form:"pet"`
 	SmokeFree      *bool    `form:"smokeFree"`
 	Parking        *bool    `form:"parking"`

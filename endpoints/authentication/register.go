@@ -17,13 +17,13 @@ func Register(c *fiber.Ctx) error {
 		}
 	}
 	user := &model.User{
-		Id:           nil,
+		Id:           account.UserId,
 		ProfileImage: nil,
 		UserName:     account.UserName,
 		Fname:        account.FirstName,
 		Lname:        account.LastName,
 		Email:        account.Email,
-		Tel:          account.Tel,
+		Tel:          nil,
 		LineID:       nil,
 		UserType:     account.Account,
 		UpdatedAt:    nil,

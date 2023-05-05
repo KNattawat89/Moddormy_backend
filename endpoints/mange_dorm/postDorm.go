@@ -19,13 +19,13 @@ func PostDorm(c *fiber.Ctx) error {
 		}
 	}
 
-	user := &model.User{}
-	if result := mysql.Gorm.First(user, body.UserId); result.Error != nil {
-		return &response.GenericError{
-			Message: "Unable to find user",
-			Err:     result.Error,
-		}
-	}
+	// user := &model.User{}
+	// if result := mysql.Gorm.First(user, body.UserId); result.Error != nil {
+	// 	return &response.GenericError{
+	// 		Message: "Unable to find user",
+	// 		Err:     result.Error,
+	// 	}
+	// }
 
 	var dorm model.Dorm
 	if err := c.BodyParser(&dorm); err != nil {

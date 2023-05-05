@@ -23,8 +23,10 @@ func Register(router fiber.Router) {
 	homeGroup.Get("/test", home.Test)
 	// case user already sign in bc it has fav status
 	homeGroup.Get("/getDormAll", home.GetDormAll)
+	homeGroup.Post("/postFilteredDorm", home.PostFilteredDorm)
 	// case user does not sign in yet
 	homeGroup.Get("/getAllDorm", home.GetAllDorm)
+	homeGroup.Post("/postFilteredNoFav", home.PostFilteredNoFav)
 
 	favoriteGroup := router.Group("/fav")
 	favoriteGroup.Get("/test", favorite.Test)
