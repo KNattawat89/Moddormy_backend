@@ -17,10 +17,10 @@ type Dorm struct {
 	Zipcode        *int16     `json:"zipcode" gorm:"not null"`
 	Desc           *string    `json:"desc" gorm:"not null"`
 	AdvancePayment *int       `json:"advance_payment" gorm:"not null"`
-	ElectricPrice  *float32   `json:"electric_price" gorm:"not null"`
-	WaterPrice     *float32   `json:"water_price" gorm:"not null"`
+	ElectricPrice  *float64   `json:"electric_price" gorm:"not null"`
+	WaterPrice     *float64   `json:"water_price" gorm:"not null"`
 	Other          *string    `json:"other" gorm:"not null"`
-	Distant        *float32   `json:"distant" gorm:"not null"` // km
+	Distant        *float64   `json:"distant" gorm:"not null"` // km
 	Pet            *bool      `json:"pet" gorm:"not null"`
 	SmokeFree      *bool      `json:"smoke_free" gorm:"not null"`
 	Parking        *bool      `json:"parking" gorm:"not null"`

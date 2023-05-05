@@ -30,17 +30,17 @@ func GetDormAll(c *fiber.Ctx) error {
 		}
 		sort.Float64sAreSorted(prices)
 		//rate
-		var overallRates []float32
+		var overallRates []float64
 		for _, rate := range dorm.Reviews {
 			overallRates = append(overallRates, *rate.RatingOverall)
 		}
-		var sum float32
-		var finalRate float32
+		var sum float64
+		var finalRate float64
 		if len(overallRates) > 0 {
 			for i := 0; i < len(overallRates); i++ {
 				sum = sum + overallRates[i]
 			}
-			finalRate = sum / float32(len(overallRates))
+			finalRate = sum / float64(len(overallRates))
 		} else {
 			finalRate = 0
 		}
