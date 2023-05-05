@@ -5,7 +5,7 @@ import "time"
 type Dorm struct {
 	Id             *uint64    `json:"id" gorm:"primaryKey;not null;"`
 	DormName       *string    `json:"dorm_name" gorm:"not null"`
-	OwnerId        *uint64    `gorm:"primaryKey;not null"`
+	OwnerId        *string    `gorm:"primaryKey;not null"`
 	Owner          *User      `gorm:"foreignKey:OwnerId;references:Id;not null"`
 	CoverImage     *string    `json:"cover_image" gorm:"not null"`
 	HouseNumber    *string    `json:"house_number" gorm:"not null"`

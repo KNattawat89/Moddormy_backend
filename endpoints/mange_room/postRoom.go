@@ -18,13 +18,13 @@ func PostRoom(c *fiber.Ctx) error {
 		}
 	}
 
-	dorm := &model.Dorm{}
-	if result := mysql.Gorm.First(dorm, body.DormId); result.Error != nil {
-		return &response.GenericError{
-			Message: "Unable to find dorm",
-			Err:     result.Error,
-		}
-	}
+	// dorm := &model.Dorm{}
+	// if result := mysql.Gorm.First(dorm, body.DormId); result.Error != nil {
+	// 	return &response.GenericError{
+	// 		Message: "Unable to find dorm",
+	// 		Err:     result.Error,
+	// 	}
+	// }
 
 	var room model.Room
 	if err := c.BodyParser(&room); err != nil {
@@ -37,7 +37,6 @@ func PostRoom(c *fiber.Ctx) error {
 	Room := &model.Room{
 		RoomName:    body.RoomName,
 		DormId:      body.DormId,
-		Dorm:        dorm,
 		CoverImage:  body.CoverImage,
 		Price:       body.Price,
 		Desc:        body.Desc,
