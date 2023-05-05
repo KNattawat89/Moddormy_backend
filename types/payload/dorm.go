@@ -3,7 +3,7 @@ package payload
 type Dorm struct {
 	DormId         *uint64  `form:"dormId"`
 	DormName       *string  `form:"dormName"`
-	UserId         *uint64  `form:"userId"`
+	UserId         *string  `form:"userId"`
 	CoverImage     *string  `form:"coverImage"`
 	HouseNumber    *string  `form:"houseNumber"`
 	Street         *string  `form:"street"`

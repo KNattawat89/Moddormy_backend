@@ -6,7 +6,7 @@ type Review struct {
 	Id             *uint64    `json:"id" gorm:"not null;primaryKey"`
 	DormId         *uint64    `json:"dorm_id" gorm:"not null;primaryKey;autoIncrement:false;"`
 	Dorm           *Dorm      `json:"dorm" gorm:"foreignKey:DormId;references:Id;not null"`
-	UserId         *uint64    `json:"user_id" gorm:"not null;primaryKey;autoIncrement:false;"`
+	UserId         *string    `json:"user_id" gorm:"not null;primaryKey;autoIncrement:false;"`
 	User           *User      `json:"user" gorm:"foreignKey:UserId;references:Id;not null"`
 	Review         *string    `json:"review" gorm:"not null"`
 	RatingOverall  *float32   `json:"rating_overall" gorm:"not null"`
