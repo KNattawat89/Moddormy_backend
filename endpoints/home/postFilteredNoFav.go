@@ -1899,19 +1899,19 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 		}
 		sort.Float64sAreSorted(prices)
 		//rate
-		var overall_rates []float64
+		var overallRates []float64
 		for _, rate := range dorm.Reviews {
-			overall_rates = append(overall_rates, *rate.RatingOverall)
+			overallRates = append(overallRates, *rate.RatingOverall)
 		}
 		var sum float64
-		var final_rate float64
-		if len(overall_rates) > 0 {
-			for i := 0; i < len(overall_rates); i++ {
-				sum = sum + overall_rates[i]
+		var finalRate float64
+		if len(overallRates) > 0 {
+			for i := 0; i < len(overallRates); i++ {
+				sum = sum + overallRates[i]
 			}
-			final_rate = sum / float64(len(overall_rates))
+			finalRate = sum / float64(len(overallRates))
 		} else {
-			final_rate = 0
+			finalRate = 0
 		}
 		//coverimage
 		coverImage, _ := url.JoinPath(config.C.URL, *dorm.CoverImage)
@@ -1922,7 +1922,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 			CoverImage: &coverImage,
 			MinPrice:   &prices[0],
 			MaxPrice:   &prices[len(prices)-1],
-			Rating:     &final_rate,
+			Rating:     &finalRate,
 		}, nil
 	})
 

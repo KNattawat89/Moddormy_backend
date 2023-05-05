@@ -25,5 +25,5 @@ func GetProfile(c *fiber.Ctx) error {
 		}
 	}
 
-	return c.JSON(user)
+	return c.JSON(response.NewResponse(user))
 }
