@@ -41,13 +41,13 @@ func PostRoom(c *fiber.Ctx) error {
 		Price:       body.Price,
 		Desc:        body.Desc,
 		Size:        body.Size,
-		Airc:        body.Airc,
-		Furniture:   body.Furniture,
-		WaterHeater: body.WaterHeater,
-		Fan:         body.Fan,
-		Fridge:      body.Fridge,
-		Bathroom:    body.Fridge,
-		TV:          body.TV,
+		Airc:        body.RoomFeature.Airc,
+		Furniture:   body.RoomFeature.Furniture,
+		WaterHeater: body.RoomFeature.WaterHeater,
+		Fan:         body.RoomFeature.Fan,
+		Fridge:      body.RoomFeature.Fridge,
+		Bathroom:    body.RoomFeature.Fridge,
+		TV:          body.RoomFeature.TV,
 	}
 
 	if result := mysql.Gorm.Create(Room); result.Error != nil {

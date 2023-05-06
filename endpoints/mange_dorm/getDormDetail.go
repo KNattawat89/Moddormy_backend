@@ -64,6 +64,7 @@ func GetDormDetail(c *fiber.Ctx) error {
 	dorm.CoverImage = &coverImage
 	dormPayload := payload.Dorm{
 		DormId:         dorm.Id,
+		UserId:         dorm.OwnerId,
 		DormName:       dorm.DormName,
 		CoverImage:     dorm.CoverImage,
 		HouseNumber:    dorm.HouseNumber,

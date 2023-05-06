@@ -4,6 +4,8 @@ import (
 	"Moddormy_backend/loaders/mysql"
 	"Moddormy_backend/loaders/mysql/model"
 	"Moddormy_backend/types/response"
+	"Moddormy_backend/utils/config"
+	"net/url"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -24,6 +26,10 @@ func GetRoomImage(c *fiber.Ctx) error {
 			Message: "Unable to get room",
 			Err:     result.Error,
 		}
+	}
+	for i := 0; i < len(roomImage); i++ {
+		images, _ := url.JoinPath(config.C.ProductionURL, *roomImage[i].FileName)
+		roomImage[i].FileName = &images
 	}
 
 	return c.JSON(roomImage)
