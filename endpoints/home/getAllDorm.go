@@ -46,7 +46,7 @@ func GetAllDorm(c *fiber.Ctx) error {
 		//coverimage
 		coverImage, _ := url.JoinPath(config.C.ProductionURL, *dorm.CoverImage)
 
-		var fav = false;
+		var fav = false
 
 		return &payload.DormSearch{
 			DormId:      dorm.Id,
@@ -55,7 +55,7 @@ func GetAllDorm(c *fiber.Ctx) error {
 			MinPrice:    &prices[0],
 			MaxPrice:    &prices[len(prices)-1],
 			OverallRate: &finalRate,
-			FavStats:    &fav,
+			FavStatus:   &fav,
 		}, nil
 	})
 
