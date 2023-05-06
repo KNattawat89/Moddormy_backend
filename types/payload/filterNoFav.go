@@ -1,9 +1,9 @@
 package payload
 
 type FilterNoFav struct{
-	MinPrice		*uint64 	`form:"min_price"`
-	MaxPrice		*uint64 	`form:"max_price"`
-	Distant			*float32 	`form:"distant"`
-	Rate			*string		`form:"rate"`
-	Facilities		[]*string	`form:"facilities"`
+	MinPrice		*uint64 	`json:"min_price"`
+	MaxPrice		*uint64 	`json:"max_price"`
+	Distant			*float32 	`json:"distant"`
+	Rate			*string		`json:"rate"`
+	Facilities		[]*string	`json:"facilities"`
 }
