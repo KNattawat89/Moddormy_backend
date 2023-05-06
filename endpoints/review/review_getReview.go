@@ -19,7 +19,7 @@ func GetDormReview(c *fiber.Ctx) error {
 
 	var review []model.Review
 
-	if result := mysql.Gorm.Where("dorm_id = ?", dormId).Find(&review); result.Error != nil {
+	if result := mysql.Gorm.Preload("User").Where("dorm_id = ?", dormId).Find(&review); result.Error != nil {
 		return &response.GenericError{
 			Message: "Unable to get review",
 			Err:     result.Error,

@@ -3,15 +3,17 @@ package review
 import (
 	"Moddormy_backend/loaders/mysql"
 	"Moddormy_backend/loaders/mysql/model"
+	"Moddormy_backend/types/common"
 	"Moddormy_backend/types/payload"
 	"Moddormy_backend/types/response"
 
-	"time"
-
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 func AddDormReview(c *fiber.Ctx) error {
+	// * Parse user
+	u := c.Locals("user").(*jwt.Token).Claims.(*common.UserClaims)
 
 	body := new(payload.DormReview)
 	if err := c.BodyParser(body); err != nil {
@@ -23,7 +25,7 @@ func AddDormReview(c *fiber.Ctx) error {
 
 	// Get the user and dorm models based on the given IDs
 	user := &model.User{}
-	if result := mysql.Gorm.First(user, body.UserId); result.Error != nil {
+	if result := mysql.Gorm.First(user, u.UserId); result.Error != nil {
 		return &response.GenericError{
 			Message: "Unable to find user",
 			Err:     result.Error,
@@ -38,39 +40,14 @@ func AddDormReview(c *fiber.Ctx) error {
 		}
 	}
 
-	//t := time.Now()
-	//createdAt, _ := time.Parse(time.RFC3339, "2023-04-26")
-	//createdAt := time.Now().Format(time.RFC3339)
-	//createdAt, err := time.Parse("2006-01-02 15:04:05", "2023-04-26 12:34:56")
-	// if err != nil {
-	// 	// handle error
-	// 	print("error arai wa")
-	// }
-	// Create the review model
-	//createAtTime, err := time.Parse("2006-01-02 15:04:05", createdAt)
-	// if err != nil {
-	// 	print("error arai wa")
-	// }
-
-	now := time.Now()
-
-	// Format the date and time as a string in the required format for MySQL
-	createAt := now.Format("2006-01-02 15:04:05")
-
-	// Parse the createAt string into a time.Time value
-	createAtTime, err := time.Parse("2006-01-02 15:04:05", createAt)
-	if err != nil {
-		// handle error
-	}
-
 	//แก้ชั่วคราว เพราะเปลี่ยน overall -> float
 	overall := float64(*body.RatingOverall)
 
 	DormReview := &model.Review{
-		UserId:         body.UserId,
-		User:           user,
-		DormId:         body.DormId,
-		Dorm:           dorm,
+		UserId: u.UserId,
+
+		DormId: body.DormId,
+
 		Review:         body.Review,
 		RatingPrice:    body.RatingPrice,
 		RatingLocation: body.RatingLocation,
@@ -78,7 +55,7 @@ func AddDormReview(c *fiber.Ctx) error {
 		RatingSanitary: body.RatingSanitary,
 		RatingSecurity: body.RatingSecurity,
 		RatingOverall:  &overall,
-		CreateAt:       &createAtTime,
+		CreatedAt:      nil,
 	}
 
 	if result := mysql.Gorm.Create(&DormReview); result.Error != nil {
