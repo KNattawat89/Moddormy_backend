@@ -7,10 +7,13 @@ import (
 	"Moddormy_backend/types/response"
 	"Moddormy_backend/utils/config"
 	"Moddormy_backend/utils/value"
-	"github.com/gofiber/fiber/v2"
+
 	"net/url"
 	"sort"
+	"strconv"
 	"strings"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func PostFilteredDorm(c *fiber.Ctx) error {
@@ -1946,9 +1949,55 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 				break
 			}
 		}
-
 	}
 
-	return c.JSON(response.NewResponse(data))
+	var finalData []payload.Home
+	var rating = *body.Rate
+	if rating != "" {
+		var pointer = len(rating) - 1
+		var word = string(rating[pointer])
+		var num, _ = strconv.Atoi(word)
+	
+		if *body.MinPrice > 0 {
+				for i := 0; i < len(data); i++ {
+					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
+						finalData = append(finalData, *data[i])
+					}
+				}
+		} else if *body.MaxPrice > 0{
+			//have only max
+			for i := 0; i < len(data); i++ {
+				if (*data[i].MaxPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
+					finalData = append(finalData, *data[i])
+				}
+			}
+	
+		} else{
+			// have only rating
+			for i := 0; i < len(data); i++ {
+				if (*data[i].OverallRate >= float64(num)) {
+					finalData = append(finalData, *data[i])
+				}
+			}
+		}
+	} else {
+		// no rating
+		if *body.MinPrice > 0 {
+			for i := 0; i < len(data); i++ {
+				if (*data[i].MinPrice >= float64(*body.MinPrice))  {
+					finalData = append(finalData, *data[i])
+				}
+			}
+		} else if *body.MaxPrice > 0{
+		//have only max
+			for i := 0; i < len(data); i++ {
+				if (*data[i].MaxPrice <= float64(*body.MaxPrice)) {
+				finalData = append(finalData, *data[i])
+				}
+			}
+		} 
+	}
+
+	return c.JSON(response.NewResponse(finalData))
 	// return c.JSON(dorms)
 }
