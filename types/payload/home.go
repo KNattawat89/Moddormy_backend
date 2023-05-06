@@ -1,11 +1,11 @@
 package payload
 
 type Home struct {
-	DormId      *uint64  `form:"dormId"`
-	DormName    *string  `form:"dorm_name"`
-	CoverImage  *string  `form:"coverImage"`
-	MinPrice    *float64 `form:"min_price"`
-	MaxPrice    *float64 `form:"max_price"`
-	OverallRate *float64 `form:"overall_rate"`
-	FavStatus   *bool    `form:"fav_status"`
+	DormId      *uint64  `json:"dorm_id"`
+	DormName    *string  `json:"dorm_name"`
+	CoverImage  *string  `json:"cover_image"`
+	MinPrice    *float64 `json:"min_price"`
+	MaxPrice    *float64 `json:"max_price"`
+	OverallRate *float64 `json:"overall_rate"`
+	FavStatus   *bool    `json:"fav_status"`
 }
