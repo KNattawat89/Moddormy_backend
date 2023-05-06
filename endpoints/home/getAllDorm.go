@@ -47,12 +47,12 @@ func GetAllDorm(c *fiber.Ctx) error {
 		coverImage, _ := url.JoinPath(config.C.ProductionURL, *dorm.CoverImage)
 
 		return &payload.DormSearch{
-			DormId:     dorm.Id,
-			DormName:   dorm.DormName,
-			CoverImage: &coverImage,
-			MinPrice:   &prices[0],
-			MaxPrice:   &prices[len(prices)-1],
-			Rating:     &finalRate,
+			DormId:      dorm.Id,
+			DormName:    dorm.DormName,
+			CoverImage:  &coverImage,
+			MinPrice:    &prices[0],
+			MaxPrice:    &prices[len(prices)-1],
+			OverallRate: &finalRate,
 		}, nil
 	})
 
