@@ -1953,33 +1953,60 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 
 	var finalData []payload.Home
 	var rating = *body.Rate
-	if rating != "" {
-		var pointer = len(rating) - 1
-		var word = string(rating[pointer])
-		var num, _ = strconv.Atoi(word)
+	if rating != ""{
+		if len(rating) >1 {
+			var pointer = len(rating) - 1
+			var word = string(rating[pointer])
+			var num, _ = strconv.Atoi(word)
 	
-		if *body.MinPrice > 0 {
+			if *body.MinPrice > 0 {
+					for i := 0; i < len(data); i++ {
+						if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
+							finalData = append(finalData, *data[i])
+						}
+					}
+			} else if *body.MaxPrice > 0{
+				//have only max
 				for i := 0; i < len(data); i++ {
-					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
+					if (*data[i].MaxPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
 						finalData = append(finalData, *data[i])
 					}
 				}
-		} else if *body.MaxPrice > 0{
-			//have only max
-			for i := 0; i < len(data); i++ {
-				if (*data[i].MaxPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
-					finalData = append(finalData, *data[i])
+		
+			} else{
+				// have only rating
+				for i := 0; i < len(data); i++ {
+					if (*data[i].OverallRate >= float64(num)) {
+						finalData = append(finalData, *data[i])
+					}
 				}
 			}
-	
-		} else{
-			// have only rating
-			for i := 0; i < len(data); i++ {
-				if (*data[i].OverallRate >= float64(num)) {
-					finalData = append(finalData, *data[i])
+		} else if len(rating) == 1{
+			var num, _ = strconv.Atoi(rating)
+			if *body.MinPrice > 0 {
+					for i := 0; i < len(data); i++ {
+						if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
+							finalData = append(finalData, *data[i])
+						}
+					}
+			} else if *body.MaxPrice > 0{
+				//have only max
+				for i := 0; i < len(data); i++ {
+					if (*data[i].MaxPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
+						finalData = append(finalData, *data[i])
+					}
+				}
+		
+			} else{
+				// have only rating
+				for i := 0; i < len(data); i++ {
+					if (*data[i].OverallRate >= float64(num)) {
+						finalData = append(finalData, *data[i])
+					}
 				}
 			}
 		}
+		
 	} else {
 		// no rating
 		if *body.MinPrice > 0 {

@@ -19,14 +19,6 @@ func PostDorm(c *fiber.Ctx) error {
 		}
 	}
 
-	// user := &model.User{}
-	// if result := mysql.Gorm.First(user, body.UserId); result.Error != nil {
-	// 	return &response.GenericError{
-	// 		Message: "Unable to find user",
-	// 		Err:     result.Error,
-	// 	}
-	// }
-
 	var dorm model.Dorm
 	if err := c.BodyParser(&dorm); err != nil {
 		return &response.GenericError{
@@ -53,16 +45,16 @@ func PostDorm(c *fiber.Ctx) error {
 		WaterPrice:     body.WaterPrice,
 		Other:          body.Other,
 		Distant:        body.Distant,
-		Pet:            body.Pet,
-		SmokeFree:      body.SmokeFree,
-		Parking:        body.Parking,
-		Lift:           body.Lift,
-		Pool:           body.Pool,
-		Fitness:        body.Fitness,
-		Wifi:           body.Wifi,
-		KeyCard:        body.KeyCard,
-		CCTV:           body.CCTV,
-		SecurityGuard:  body.SecurityGuard,
+		Pet:            body.DormFeatures.Pet,
+		SmokeFree:      body.DormFeatures.SmokeFree,
+		Parking:        body.DormFeatures.Parking,
+		Lift:           body.DormFeatures.Lift,
+		Pool:           body.DormFeatures.Pool,
+		Fitness:        body.DormFeatures.Fitness,
+		Wifi:           body.DormFeatures.Wifi,
+		KeyCard:        body.DormFeatures.KeyCard,
+		CCTV:           body.DormFeatures.CCTV,
+		SecurityGuard:  body.DormFeatures.SecurityGuard,
 	}
 
 	if result := mysql.Gorm.Create(&Dorm); result.Error != nil {
