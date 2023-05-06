@@ -1936,11 +1936,11 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 		var num, _ = strconv.Atoi(word)
 	
 		if *body.MinPrice > 0 {
-				for i := 0; i < len(data); i++ {
-					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
-						finalData = append(finalData, *data[i])
-					}
+			for i := 0; i < len(data); i++ {
+				if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
+					finalData = append(finalData, *data[i])
 				}
+			}
 		} else if *body.MaxPrice > 0{
 			//have only max
 			for i := 0; i < len(data); i++ {
