@@ -1,6 +1,6 @@
 package payload
 
 type Favorite struct {
-	DormId *uint64 `form:"dormId"`
-	UserId *string `form:"userId"`
+	DormId *uint64 `json:"dormId"`
+	UserId *string `json:"userId"`
 }
