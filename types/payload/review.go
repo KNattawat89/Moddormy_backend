@@ -1,13 +1,13 @@
 package payload
 
 type DormReview struct {
-	UserId         *string `form:"userId"`
-	DormId         *uint64 `form:"dormId"`
-	Review         *string `form:"review"`
-	RatingPrice    *int    `form:"ratingPrice"`
-	RatingLocation *int    `form:"ratingLocation"`
-	RatingFacility *int    `form:"ratingFacility"`
-	RatingSanitary *int    `form:"ratingSanitary"`
-	RatingSecurity *int    `form:"ratingSecurity"`
-	RatingOverall  *int    `form:"ratingOverall"`
+	UserId         *string `json:"userId"`
+	DormId         *uint64 `json:"dormId"`
+	Review         *string `json:"review"`
+	RatingPrice    *int    `json:"ratingPrice"`
+	RatingLocation *int    `json:"ratingLocation"`
+	RatingFacility *int    `json:"ratingFacility"`
+	RatingSanitary *int    `json:"ratingSanitary"`
+	RatingSecurity *int    `json:"ratingSecurity"`
+	RatingOverall  *int    `json:"ratingOverall"`
 }
