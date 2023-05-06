@@ -72,7 +72,7 @@ func GetFav(c *fiber.Ctx) error {
 			DormId:     dorm.Id,
 			DormName:   dorm.DormName,
 			CoverImage: &coverImage,
-			Rating:     &ratingAvg,
+			OverallRate:     &ratingAvg,
 			MinPrice:   &prices[0],
 			MaxPrice:   &prices[len(prices)-1],
 		}, nil
