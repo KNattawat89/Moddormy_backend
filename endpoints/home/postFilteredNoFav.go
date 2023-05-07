@@ -30,7 +30,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 	filterSmokeFree := true
 	filterGuard := true
 	filterPet := true
-	ffilterAir := true
+	filterAir := true
 	filterFan := true
 
 	var dorms []model.Dorm
@@ -75,7 +75,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? ", ffilterAir).Preload("Reviews").Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? ", filterAir).Preload("Reviews").Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm that have air-conditioner room",
 							Err:     result.Error,
@@ -120,7 +120,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("parking = ?", filterParking).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("parking = ?", filterParking).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking and air-conditioner",
 							Err:     result.Error,
@@ -155,7 +155,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("wifi = ?", filterWifi).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("wifi = ?", filterWifi).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi and air-conditioner",
 							Err:     result.Error,
@@ -183,7 +183,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("smoke_free = ?", filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("smoke_free = ?", filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free and air-conditioner",
 							Err:     result.Error,
@@ -204,7 +204,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "security guard") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("security_guard = ?", filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("security_guard = ?", filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with security guard and air-conditioner",
 							Err:     result.Error,
@@ -218,7 +218,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "pet friendly") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("pet = ?", filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("pet = ?", filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with pet friendly and air-conditioner",
 							Err:     result.Error,
@@ -232,7 +232,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "air-conditioner") && strings.EqualFold(*body.Facilities[1], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", ffilterAir, filterFan).Preload("Reviews").Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", filterAir, filterFan).Preload("Reviews").Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with air-conditioner and fan",
 							Err:     result.Error,
@@ -264,7 +264,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("parking = ? AND wifi = ?", filterParking, filterWifi).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("parking = ? AND wifi = ?", filterParking, filterWifi).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, airc",
 							Err:     result.Error,
@@ -292,7 +292,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking = ? AND smoke_free =?", filterParking, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking = ? AND smoke_free =?", filterParking, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, air-conditioner",
 							Err:     result.Error,
@@ -313,7 +313,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking = ? AND security_guard =?", filterParking, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking = ? AND security_guard =?", filterParking, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, security guard, airc",
 							Err:     result.Error,
@@ -327,7 +327,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking = ? AND pet =?", filterParking, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking = ? AND pet =?", filterParking, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, pet friendly, airc",
 							Err:     result.Error,
@@ -341,7 +341,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking = ? ", filterParking).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking = ? ", filterParking).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, air-conditioner, fan",
 							Err:     result.Error,
@@ -362,7 +362,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("wifi = ? AND smoke_free =?", filterWifi, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("wifi = ? AND smoke_free =?", filterWifi, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, air",
 							Err:     result.Error,
@@ -383,7 +383,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc =?", ffilterAir).Preload("Reviews").Where("wifi = ? AND security_guard = ?", filterWifi, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc =?", filterAir).Preload("Reviews").Where("wifi = ? AND security_guard = ?", filterWifi, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, security guard, air-conditioner",
 							Err:     result.Error,
@@ -397,7 +397,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc =?", ffilterAir).Preload("Reviews").Where("wifi = ? AND pet = ?", filterWifi, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc =?", filterAir).Preload("Reviews").Where("wifi = ? AND pet = ?", filterWifi, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -411,7 +411,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc =? OR fan =?", ffilterAir, filterFan).Preload("Reviews").Where("wifi = ? ", filterWifi).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc =? OR fan =?", filterAir, filterFan).Preload("Reviews").Where("wifi = ? ", filterWifi).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, air-conditioner, fan",
 							Err:     result.Error,
@@ -425,7 +425,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("smoke_free = ? AND security_guard = ?", filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("smoke_free = ? AND security_guard = ?", filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, security guard, air-conditioner",
 							Err:     result.Error,
@@ -439,7 +439,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("smoke_free = ? AND pet = ?", filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("smoke_free = ? AND pet = ?", filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, pet, air-conditioner",
 							Err:     result.Error,
@@ -453,14 +453,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan =?", ffilterAir, filterFan).Preload("Reviews").Where("smoke_free = ?", filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan =?", filterAir, filterFan).Preload("Reviews").Where("smoke_free = ?", filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "security guard") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("security_guard = ? AND pet = ?", filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("security_guard = ? AND pet = ?", filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with security guard, pet, air-conditioner",
 							Err:     result.Error,
@@ -474,14 +474,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "security guard") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", ffilterAir, filterFan).Preload("Reviews").Where("security_guard = ?", filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", filterAir, filterFan).Preload("Reviews").Where("security_guard = ?", filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "pet friendly") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", ffilterAir, filterFan).Preload("Reviews").Where("pet = ?", filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", filterAir, filterFan).Preload("Reviews").Where("pet = ?", filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with pet friendly, air-conditioner, fan",
 							Err:     result.Error,
@@ -506,7 +506,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc =?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =?", filterParking, filterWifi, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc =?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =?", filterParking, filterWifi, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, air-conditioner",
 							Err:     result.Error,
@@ -527,7 +527,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =?", filterParking, filterWifi, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =?", filterParking, filterWifi, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, security guard, air-conditioner",
 							Err:     result.Error,
@@ -541,7 +541,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND pet =?", filterParking, filterWifi, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND pet =?", filterParking, filterWifi, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -555,7 +555,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? ", filterParking, filterWifi).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? ", filterParking, filterWifi).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, air-conditioner, fan",
 							Err:     result.Error,
@@ -569,7 +569,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =?", filterParking, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =?", filterParking, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, security guard, air-conditioner",
 							Err:     result.Error,
@@ -583,7 +583,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND pet =?", filterParking, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND pet =?", filterParking, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -597,14 +597,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? ", filterParking, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? ", filterParking, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND security_guard =? AND pet=?", filterParking, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND security_guard =? AND pet=?", filterParking, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, security guard, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -618,14 +618,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND security_guard =? ", filterParking, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND security_guard =? ", filterParking, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], " pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND pet =? ", filterParking, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND pet =? ", filterParking, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking,  pet friendly, air-conditioner, fan",
 							Err:     result.Error,
@@ -639,7 +639,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? ", filterWifi, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? ", filterWifi, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, security guard, air-conditioner",
 							Err:     result.Error,
@@ -653,7 +653,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND pet =? ", filterWifi, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND pet =? ", filterWifi, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -667,14 +667,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=?", filterWifi, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=?", filterWifi, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("wifi =? AND security_guard=? AND pet =? ", filterWifi, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("wifi =? AND security_guard=? AND pet =? ", filterWifi, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, security guard, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -688,21 +688,21 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND security_guard=?", filterWifi, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND security_guard=?", filterWifi, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND pet=?", filterWifi, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND pet=?", filterWifi, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("smoke_free =? AND security_guard=? AND pet =? ", filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("smoke_free =? AND security_guard=? AND pet =? ", filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, security guard, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -716,21 +716,21 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditione") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND security_guard=?", filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND security_guard=?", filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, security guard, air-conditione, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditione") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND pet=?", filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND pet=?", filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, pet friendly, air-conditione, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "security guard") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditione") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("security_guard =? AND pet=?", filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("security_guard =? AND pet=?", filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with security guard, pet friendly, air-conditione, fan",
 							Err:     result.Error,
@@ -748,7 +748,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "security guard") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=?", filterParking, filterWifi, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=?", filterParking, filterWifi, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, security guard,  air-conditioner",
 							Err:     result.Error,
@@ -762,7 +762,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, pet friendly,  air-conditioner",
 							Err:     result.Error,
@@ -776,14 +776,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =?", filterParking, filterWifi, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =?", filterParking, filterWifi, filterSmokeFree).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? AND pet=?", filterParking, filterWifi, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? AND pet=?", filterParking, filterWifi, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, security guard, pet friendly,  air-conditioner",
 							Err:     result.Error,
@@ -797,21 +797,21 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? ", filterParking, filterWifi, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? ", filterParking, filterWifi, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND pet =? ", filterParking, filterWifi, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND pet =? ", filterParking, filterWifi, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? AND pet=?", filterParking, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? AND pet=?", filterParking, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, security guard, pet friendly,  air-conditioner",
 							Err:     result.Error,
@@ -825,28 +825,28 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? ", filterParking, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? ", filterParking, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, security guard, air-conditioner,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND pet =? ", filterParking, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND pet =? ", filterParking, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, pet friendly, air-conditioner,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND security_guard=? AND pet =? ", filterParking, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND security_guard=? AND pet =? ", filterParking, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, security guard, pet friendly, air-conditioner,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? AND pet=?", filterWifi, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? AND pet=?", filterWifi, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, security guard, pet friendly,  air-conditioner",
 							Err:     result.Error,
@@ -860,28 +860,28 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? ", filterWifi, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? ", filterWifi, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND pet =? ", filterWifi, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND pet =? ", filterWifi, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND security_guard=? AND pet =? ", filterWifi, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND security_guard=? AND pet =? ", filterWifi, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi,security guard, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND security_guard=? AND pet =? ", filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND security_guard=? AND pet =? ", filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free,security guard, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
@@ -892,7 +892,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 			} else if len(body.Facilities) == 6 {
 				//7
 				if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "security guard") && strings.EqualFold(*body.Facilities[4], "pet friendly") && strings.EqualFold(*body.Facilities[5], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, security guard, pet friendly,air-conditioner",
 							Err:     result.Error,
@@ -906,35 +906,35 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "security guard") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=?", filterParking, filterWifi, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=?", filterParking, filterWifi, filterSmokeFree, filterGuard).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, security guard, air-conditioner ,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, pet friendly, air-conditioner ,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? AND pet=?", filterParking, filterWifi, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? AND pet=?", filterParking, filterWifi, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, security guard, pet friendly, air-conditioner ,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? AND pet=?", filterParking, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? AND pet=?", filterParking, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, security guard, pet friendly, air-conditioner ,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? AND pet=?", filterWifi, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? AND pet=?", filterWifi, filterSmokeFree, filterGuard, filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, security guard, pet friendly, air-conditioner ,fan",
 							Err:     result.Error,
@@ -944,7 +944,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 
 			} else if len(body.Facilities) == 7 {
 				//1
-				if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan =?", ffilterAir, filterFan).Preload("Reviews").Where("parking = ?", filterParking).Where("wifi = ?", filterWifi).Where("smoke_free = ?", filterSmokeFree).Where("security_guard = ?", filterGuard).Where("pet = ?", filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
+				if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan =?", filterAir, filterFan).Preload("Reviews").Where("parking = ?", filterParking).Where("wifi = ?", filterWifi).Where("smoke_free = ?", filterSmokeFree).Where("security_guard = ?", filterGuard).Where("pet = ?", filterPet).Where("distant <= ?", *body.Distant).Find(&dorms); result.Error != nil {
 					return &response.GenericError{
 						Message: "Dorm not found",
 						Err:     result.Error,
@@ -1003,7 +1003,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? ", ffilterAir).Preload("Reviews").Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? ", filterAir).Preload("Reviews").Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm that have air-conditioner room",
 							Err:     result.Error,
@@ -1048,7 +1048,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("parking = ?", filterParking).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("parking = ?", filterParking).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking and air-conditioner",
 							Err:     result.Error,
@@ -1083,7 +1083,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("wifi = ?", filterWifi).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("wifi = ?", filterWifi).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi and air-conditioner",
 							Err:     result.Error,
@@ -1111,7 +1111,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("smoke_free = ?", filterSmokeFree).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("smoke_free = ?", filterSmokeFree).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free and air-conditioner",
 							Err:     result.Error,
@@ -1132,7 +1132,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "security guard") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("security_guard = ?", filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("security_guard = ?", filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with security guard and air-conditioner",
 							Err:     result.Error,
@@ -1146,7 +1146,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "pet friendly") && strings.EqualFold(*body.Facilities[1], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("pet = ?", filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("pet = ?", filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with pet friendly and air-conditioner",
 							Err:     result.Error,
@@ -1160,7 +1160,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "air-conditioner") && strings.EqualFold(*body.Facilities[1], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", ffilterAir, filterFan).Preload("Reviews").Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", filterAir, filterFan).Preload("Reviews").Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with air-conditioner and fan",
 							Err:     result.Error,
@@ -1192,7 +1192,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("parking = ? AND wifi = ?", filterParking, filterWifi).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("parking = ? AND wifi = ?", filterParking, filterWifi).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, airc",
 							Err:     result.Error,
@@ -1220,7 +1220,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking = ? AND smoke_free =?", filterParking, filterSmokeFree).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking = ? AND smoke_free =?", filterParking, filterSmokeFree).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, air-conditioner",
 							Err:     result.Error,
@@ -1241,7 +1241,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking = ? AND security_guard =?", filterParking, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking = ? AND security_guard =?", filterParking, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, security guard, airc",
 							Err:     result.Error,
@@ -1255,7 +1255,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking = ? AND pet =?", filterParking, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking = ? AND pet =?", filterParking, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, pet friendly, airc",
 							Err:     result.Error,
@@ -1269,7 +1269,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking = ? ", filterParking).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking = ? ", filterParking).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, air-conditioner, fan",
 							Err:     result.Error,
@@ -1290,7 +1290,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("wifi = ? AND smoke_free =?", filterWifi, filterSmokeFree).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("wifi = ? AND smoke_free =?", filterWifi, filterSmokeFree).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, air",
 							Err:     result.Error,
@@ -1311,7 +1311,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc =?", ffilterAir).Preload("Reviews").Where("wifi = ? AND security_guard = ?", filterWifi, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc =?", filterAir).Preload("Reviews").Where("wifi = ? AND security_guard = ?", filterWifi, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, security guard, air-conditioner",
 							Err:     result.Error,
@@ -1325,7 +1325,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc =?", ffilterAir).Preload("Reviews").Where("wifi = ? AND pet = ?", filterWifi, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc =?", filterAir).Preload("Reviews").Where("wifi = ? AND pet = ?", filterWifi, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -1339,7 +1339,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc =? OR fan =?", ffilterAir, filterFan).Preload("Reviews").Where("wifi = ? ", filterWifi).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc =? OR fan =?", filterAir, filterFan).Preload("Reviews").Where("wifi = ? ", filterWifi).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, air-conditioner, fan",
 							Err:     result.Error,
@@ -1353,7 +1353,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("smoke_free = ? AND security_guard = ?", filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("smoke_free = ? AND security_guard = ?", filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, security guard, air-conditioner",
 							Err:     result.Error,
@@ -1367,7 +1367,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("smoke_free = ? AND pet = ?", filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("smoke_free = ? AND pet = ?", filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, pet, air-conditioner",
 							Err:     result.Error,
@@ -1381,14 +1381,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan =?", ffilterAir, filterFan).Preload("Reviews").Where("smoke_free = ?", filterSmokeFree).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan =?", filterAir, filterFan).Preload("Reviews").Where("smoke_free = ?", filterSmokeFree).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "security guard") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ?", ffilterAir).Preload("Reviews").Where("security_guard = ? AND pet = ?", filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ?", filterAir).Preload("Reviews").Where("security_guard = ? AND pet = ?", filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with security guard, pet, air-conditioner",
 							Err:     result.Error,
@@ -1402,14 +1402,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "security guard") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", ffilterAir, filterFan).Preload("Reviews").Where("security_guard = ?", filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", filterAir, filterFan).Preload("Reviews").Where("security_guard = ?", filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "pet friendly") && strings.EqualFold(*body.Facilities[1], "air-conditioner") && strings.EqualFold(*body.Facilities[2], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", ffilterAir, filterFan).Preload("Reviews").Where("pet = ?", filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan = ?", filterAir, filterFan).Preload("Reviews").Where("pet = ?", filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with pet friendly, air-conditioner, fan",
 							Err:     result.Error,
@@ -1434,7 +1434,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc =?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =?", filterParking, filterWifi, filterSmokeFree).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc =?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =?", filterParking, filterWifi, filterSmokeFree).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, air-conditioner",
 							Err:     result.Error,
@@ -1455,7 +1455,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =?", filterParking, filterWifi, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =?", filterParking, filterWifi, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, security guard, air-conditioner",
 							Err:     result.Error,
@@ -1469,7 +1469,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND pet =?", filterParking, filterWifi, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND pet =?", filterParking, filterWifi, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -1483,7 +1483,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? ", filterParking, filterWifi).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? ", filterParking, filterWifi).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, air-conditioner, fan",
 							Err:     result.Error,
@@ -1497,7 +1497,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =?", filterParking, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =?", filterParking, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, security guard, air-conditioner",
 							Err:     result.Error,
@@ -1511,7 +1511,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND pet =?", filterParking, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND pet =?", filterParking, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -1525,14 +1525,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? ", filterParking, filterSmokeFree).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? ", filterParking, filterSmokeFree).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND security_guard =? AND pet=?", filterParking, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND security_guard =? AND pet=?", filterParking, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, security guard, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -1546,14 +1546,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND security_guard =? ", filterParking, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND security_guard =? ", filterParking, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], " pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND pet =? ", filterParking, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND pet =? ", filterParking, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking,  pet friendly, air-conditioner, fan",
 							Err:     result.Error,
@@ -1567,7 +1567,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? ", filterWifi, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? ", filterWifi, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, security guard, air-conditioner",
 							Err:     result.Error,
@@ -1581,7 +1581,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND pet =? ", filterWifi, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND pet =? ", filterWifi, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -1595,14 +1595,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=?", filterWifi, filterSmokeFree).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=?", filterWifi, filterSmokeFree).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("wifi =? AND security_guard=? AND pet =? ", filterWifi, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("wifi =? AND security_guard=? AND pet =? ", filterWifi, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, security guard, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -1616,21 +1616,21 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND security_guard=?", filterWifi, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND security_guard=?", filterWifi, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditioner") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND pet=?", filterWifi, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND pet=?", filterWifi, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("smoke_free =? AND security_guard=? AND pet =? ", filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("smoke_free =? AND security_guard=? AND pet =? ", filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, security guard, pet friendly, air-conditioner",
 							Err:     result.Error,
@@ -1644,21 +1644,21 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "air-conditione") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND security_guard=?", filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND security_guard=?", filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, security guard, air-conditione, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditione") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND pet=?", filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND pet=?", filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free, pet friendly, air-conditione, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "security guard") && strings.EqualFold(*body.Facilities[1], "pet friendly") && strings.EqualFold(*body.Facilities[2], "air-conditione") && strings.EqualFold(*body.Facilities[3], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("security_guard =? AND pet=?", filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("security_guard =? AND pet=?", filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with security guard, pet friendly, air-conditione, fan",
 							Err:     result.Error,
@@ -1676,7 +1676,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "security guard") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=?", filterParking, filterWifi, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=?", filterParking, filterWifi, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, security guard,  air-conditioner",
 							Err:     result.Error,
@@ -1690,7 +1690,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, pet friendly,  air-conditioner",
 							Err:     result.Error,
@@ -1704,14 +1704,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =?", filterParking, filterWifi, filterSmokeFree).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =?", filterParking, filterWifi, filterSmokeFree).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? AND pet=?", filterParking, filterWifi, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? AND pet=?", filterParking, filterWifi, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, security guard, pet friendly,  air-conditioner",
 							Err:     result.Error,
@@ -1725,21 +1725,21 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? ", filterParking, filterWifi, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? ", filterParking, filterWifi, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND pet =? ", filterParking, filterWifi, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND pet =? ", filterParking, filterWifi, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? AND pet=?", filterParking, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? AND pet=?", filterParking, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, security guard, pet friendly,  air-conditioner",
 							Err:     result.Error,
@@ -1753,28 +1753,28 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? ", filterParking, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? ", filterParking, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, security guard, air-conditioner,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND pet =? ", filterParking, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND pet =? ", filterParking, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, pet friendly, air-conditioner,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND security_guard=? AND pet =? ", filterParking, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND security_guard=? AND pet =? ", filterParking, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, security guard, pet friendly, air-conditioner,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? AND pet=?", filterWifi, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? AND pet=?", filterWifi, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, security guard, pet friendly,  air-conditioner",
 							Err:     result.Error,
@@ -1788,28 +1788,28 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? ", filterWifi, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? ", filterWifi, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, security guard, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND pet =? ", filterWifi, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND pet =? ", filterWifi, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND security_guard=? AND pet =? ", filterWifi, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND security_guard=? AND pet =? ", filterWifi, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi,security guard, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "smoke-free") && strings.EqualFold(*body.Facilities[1], "security guard") && strings.EqualFold(*body.Facilities[2], "pet friendly") && strings.EqualFold(*body.Facilities[3], "air-conditioner") && strings.EqualFold(*body.Facilities[4], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND security_guard=? AND pet =? ", filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("smoke_free =? AND security_guard=? AND pet =? ", filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with smoke-free,security guard, pet friendly, air-conditioner, fan",
 							Err:     result.Error,
@@ -1820,7 +1820,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 			} else if len(body.Facilities) == 6 {
 				//7
 				if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "security guard") && strings.EqualFold(*body.Facilities[4], "pet friendly") && strings.EqualFold(*body.Facilities[5], "air-conditioner") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=?", ffilterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=?", filterAir).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, security guard, pet friendly,air-conditioner",
 							Err:     result.Error,
@@ -1834,35 +1834,35 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "security guard") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=?", filterParking, filterWifi, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND security_guard=?", filterParking, filterWifi, filterSmokeFree, filterGuard).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, security guard, air-conditioner ,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "smoke-free") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND smoke_free =? AND pet=?", filterParking, filterWifi, filterSmokeFree, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, smoke-free, pet friendly, air-conditioner ,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "wifi") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? AND pet=?", filterParking, filterWifi, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND wifi=? AND security_guard =? AND pet=?", filterParking, filterWifi, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, wifi, security guard, pet friendly, air-conditioner ,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "parking") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? AND pet=?", filterParking, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("parking =? AND smoke_free=? AND security_guard =? AND pet=?", filterParking, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with parking, smoke-free, security guard, pet friendly, air-conditioner ,fan",
 							Err:     result.Error,
 						}
 					}
 				} else if strings.EqualFold(*body.Facilities[0], "wifi") && strings.EqualFold(*body.Facilities[1], "smoke-free") && strings.EqualFold(*body.Facilities[2], "security guard") && strings.EqualFold(*body.Facilities[3], "pet friendly") && strings.EqualFold(*body.Facilities[4], "air-conditioner") && strings.EqualFold(*body.Facilities[5], "fan") {
-					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", ffilterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? AND pet=?", filterWifi, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
+					if result := mysql.Gorm.Preload("Rooms", "airc=? OR fan=?", filterAir, filterFan).Preload("Reviews").Where("wifi =? AND smoke_free=? AND security_guard =? AND pet=?", filterWifi, filterSmokeFree, filterGuard, filterPet).Find(&dorms); result.Error != nil {
 						return &response.GenericError{
 							Message: "Not find dorm with wifi, smoke-free, security guard, pet friendly, air-conditioner ,fan",
 							Err:     result.Error,
@@ -1872,7 +1872,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 
 			} else if len(body.Facilities) == 7 {
 				//1
-				if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan =?", ffilterAir, filterFan).Preload("Reviews").Where("parking = ?", filterParking).Where("wifi = ?", filterWifi).Where("smoke_free = ?", filterSmokeFree).Where("security_guard = ?", filterGuard).Where("pet = ?", filterPet).Find(&dorms); result.Error != nil {
+				if result := mysql.Gorm.Preload("Rooms", "airc = ? OR fan =?", filterAir, filterFan).Preload("Reviews").Where("parking = ?", filterParking).Where("wifi = ?", filterWifi).Where("smoke_free = ?", filterSmokeFree).Where("security_guard = ?", filterGuard).Where("pet = ?", filterPet).Find(&dorms); result.Error != nil {
 					return &response.GenericError{
 						Message: "Dorm not found",
 						Err:     result.Error,
@@ -1936,11 +1936,20 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 		var num, _ = strconv.Atoi(word)
 	
 		if *body.MinPrice > 0 {
-			for i := 0; i < len(data); i++ {
-				if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
-					finalData = append(finalData, *data[i])
+			if *body.MaxPrice > 0 {
+				for i := 0; i < len(data); i++ {
+					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].MinPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
+						finalData = append(finalData, *data[i])
+					}
+				}
+			}else {
+				for i := 0; i < len(data); i++ {
+					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
+						finalData = append(finalData, *data[i])
+					}
 				}
 			}
+
 		} else if *body.MaxPrice > 0{
 			//have only max
 			for i := 0; i < len(data); i++ {
@@ -1960,9 +1969,17 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 	} else {
 		// no rating
 		if *body.MinPrice > 0 {
-			for i := 0; i < len(data); i++ {
-				if (*data[i].MinPrice >= float64(*body.MinPrice))  {
-					finalData = append(finalData, *data[i])
+			if *body.MaxPrice > 0 {
+				for i := 0; i < len(data); i++ {
+					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].MinPrice <= float64(*body.MaxPrice))  {
+						finalData = append(finalData, *data[i])
+					}
+				}
+			}else {
+				for i := 0; i < len(data); i++ {
+					if (*data[i].MinPrice >= float64(*body.MinPrice)) {
+						finalData = append(finalData, *data[i])
+					}
 				}
 			}
 		} else if *body.MaxPrice > 0{
