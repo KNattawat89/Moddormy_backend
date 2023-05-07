@@ -56,6 +56,7 @@ func Register(router fiber.Router) {
 	profileGroup.Get("/test", profile.Test)
 	profileGroup.Get("/getProfile", profile.GetProfile)
 	profileGroup.Get("/getProfileDorm", profile.GetProfileDorm)
+	profileGroup.Put("/editUser", profile.EditUser)
 
 	reviewGroup := router.Group("/review")
 	reviewGroup.Get("/test", review.Test)
