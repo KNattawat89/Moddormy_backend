@@ -9,7 +9,6 @@ import (
 	"Moddormy_backend/endpoints/profile"
 	"Moddormy_backend/endpoints/review"
 	"Moddormy_backend/endpoints/upload"
-	"Moddormy_backend/loaders/fiber/middlewares"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -61,7 +60,7 @@ func Register(router fiber.Router) {
 	reviewGroup := router.Group("/review")
 	reviewGroup.Get("/test", review.Test)
 	reviewGroup.Get("/getDormReview", review.GetDormReview)
-	reviewGroup.Post("/addDormReview", middlewares.Jwt(), review.AddDormReview)
+	reviewGroup.Post("/addDormReview", review.AddDormReview)
 	reviewGroup.Delete("/deleteDormReview", review.DeleteDormReview)
 
 }

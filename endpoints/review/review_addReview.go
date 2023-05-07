@@ -3,17 +3,16 @@ package review
 import (
 	"Moddormy_backend/loaders/mysql"
 	"Moddormy_backend/loaders/mysql/model"
-	"Moddormy_backend/types/common"
 	"Moddormy_backend/types/payload"
 	"Moddormy_backend/types/response"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-jwt/jwt/v4"
+	//"github.com/golang-jwt/jwt/v4"
 )
 
 func AddDormReview(c *fiber.Ctx) error {
 	// * Parse user
-	u := c.Locals("user").(*jwt.Token).Claims.(*common.UserClaims)
+	//u := c.Locals("user").(*jwt.Token).Claims.(*common.UserClaims)
 
 	body := new(payload.DormReview)
 	if err := c.BodyParser(body); err != nil {
@@ -24,8 +23,9 @@ func AddDormReview(c *fiber.Ctx) error {
 	}
 
 	// Get the user and dorm models based on the given IDs
+
 	user := &model.User{}
-	if result := mysql.Gorm.First(user, u.UserId); result.Error != nil {
+	if result := mysql.Gorm.First(user, body.UserId); result.Error != nil {
 		return &response.GenericError{
 			Message: "Unable to find user",
 			Err:     result.Error,
@@ -44,7 +44,7 @@ func AddDormReview(c *fiber.Ctx) error {
 	overall := float64(*body.RatingOverall)
 
 	DormReview := &model.Review{
-		UserId: u.UserId,
+		UserId: body.UserId,
 
 		DormId: body.DormId,
 
