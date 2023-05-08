@@ -7,3 +7,7 @@ type UploadDorm struct {
 type UploadRoom struct {
 	RoomId *uint64 `form:"roomId"`
 }
+
+type UploadCoverImg struct {
+	Image *string `json:"image"`
+}
