@@ -19,6 +19,7 @@ func Register(router fiber.Router) {
 	uploadGroup := router.Group("/upload")
 	uploadGroup.Post("/dorm", upload.Dorming)
 	uploadGroup.Post("/room", upload.Rooming)
+	uploadGroup.Post("/coverImage", upload.CoverImg)
 
 	homeGroup := router.Group("/home")
 	homeGroup.Get("/test", home.Test)
