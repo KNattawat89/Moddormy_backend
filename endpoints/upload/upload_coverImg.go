@@ -4,10 +4,11 @@ import (
 	"Moddormy_backend/types/payload"
 	"Moddormy_backend/types/response"
 	"Moddormy_backend/utils/text"
-	"github.com/gofiber/fiber/v2"
 	"image"
 	"image/jpeg"
 	"os"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func CoverImg(c *fiber.Ctx) error {
@@ -39,7 +40,7 @@ func CoverImg(c *fiber.Ctx) error {
 	fileSalt := *text.GenerateString(text.GenerateStringSet.Num, 6)
 
 	// * Save image to file
-	savingFile, err := os.Create("./images/" + fileSalt + ".jpeg")
+	savingFile, err := os.Create("/images/" + fileSalt + ".jpeg")
 	if err != nil {
 		return &response.GenericError{
 			Message: "Unable to create an image file",
