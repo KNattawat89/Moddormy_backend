@@ -1,7 +1,7 @@
 package payload
 
 type DormReview struct {
-	// UserId         *string `json:"userId"`
+	UserId         *string `json:"userId"`
 	DormId         *uint64 `json:"dormId"`
 	Review         *string `json:"review"`
 	RatingPrice    *int    `json:"ratingPrice"`
