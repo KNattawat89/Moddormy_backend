@@ -5,7 +5,9 @@ import (
 	"Moddormy_backend/loaders/mysql/model"
 	"Moddormy_backend/types/payload"
 	"Moddormy_backend/types/response"
+	"Moddormy_backend/utils/config"
 	"Moddormy_backend/utils/value"
+	"net/url"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -33,12 +35,14 @@ func GetProfileDorm(c *fiber.Ctx) error {
 			Err:     nil,
 		}
 	}
+	
 
 	mappedDormProfile, _ := value.Iterate(dorms, func(dorm model.Dorm) (*payload.DormProfile,error) {
+		coverImage, _ := url.JoinPath(config.C.ProductionURL, *dorm.CoverImage)
 			return &payload.DormProfile{
 				DormId: dorm.Id,
 				DormName: dorm.DormName,
-				CoverImage: dorm.CoverImage,
+				CoverImage: &coverImage,
 				CreatedAt: dorm.CreatedAt,
 			},nil
 	});

@@ -10,17 +10,17 @@ import (
 
 func DeleteRoom(c *fiber.Ctx) error {
 
-	roomId := c.Query("roomId")
+	dormId := c.Query("dormId")
 
-	if roomId == "" {
+	if dormId == "" {
 		return &response.GenericError{
-			Message: "roomId is missing from query parameters",
+			Message: "dormId is missing from query parameters",
 			Err:     nil,
 		}
 	}
 
 	var room model.Room
-	if result := mysql.Gorm.Where("Id = ?", roomId).First(&room); result.Error != nil {
+	if result := mysql.Gorm.Where("dorm_id = ?", dormId).Find(&room); result.Error != nil {
 		return &response.GenericError{
 			Message: "Room not found",
 			Err:     result.Error,
