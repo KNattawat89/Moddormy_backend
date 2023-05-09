@@ -4,10 +4,11 @@ import (
 	"Moddormy_backend/types/payload"
 	"Moddormy_backend/types/response"
 	"Moddormy_backend/utils/text"
-	"github.com/gofiber/fiber/v2"
 	"image"
 	"image/jpeg"
 	"os"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func CoverImg(c *fiber.Ctx) error {
@@ -55,7 +56,7 @@ func CoverImg(c *fiber.Ctx) error {
 		}
 	}
 
-	var image = "./images/" + fileSalt + ".jpeg"
+	var image = "/images/" + fileSalt + ".jpeg"
 
 	return c.JSON(
 		payload.UploadCoverImg{Image: &image},
