@@ -14,7 +14,7 @@ type Dorm struct {
 	SubDistrict    *string    `json:"sub_district" gorm:"not null"`
 	District       *string    `json:"district" gorm:"not null"`
 	City           *string    `json:"city" gorm:"not null"`
-	Zipcode        *int16     `json:"zipcode" gorm:"not null"`
+	Zipcode        *int32     `json:"zipcode" gorm:"not null"`
 	Desc           *string    `json:"desc" gorm:"not null"`
 	AdvancePayment *int       `json:"advance_payment" gorm:"not null"`
 	ElectricPrice  *float64   `json:"electric_price" gorm:"not null"`

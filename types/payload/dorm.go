@@ -11,7 +11,7 @@ type Dorm struct {
 	SubDistrict    *string      `json:"subDistrict"`
 	District       *string      `json:"district"`
 	City           *string      `json:"city"`
-	Zipcode        *int16       `json:"zipcode"`
+	Zipcode        *int32       `json:"zipcode"`
 	Desc           *string      `json:"desc"`
 	AdvancePayment *int         `json:"advancePayment"`
 	ElectricPrice  *float64     `json:"electricPrice"`
