@@ -40,7 +40,7 @@ func CoverImg(c *fiber.Ctx) error {
 	fileSalt := *text.GenerateString(text.GenerateStringSet.Num, 6)
 
 	// * Save image to file
-	savingFile, err := os.Create("/images/" + fileSalt + ".jpeg")
+	savingFile, err := os.Create("./images/" + fileSalt + ".jpeg")
 	if err != nil {
 		return &response.GenericError{
 			Message: "Unable to create an image file",
@@ -56,7 +56,7 @@ func CoverImg(c *fiber.Ctx) error {
 		}
 	}
 
-	var image = "./images/" + fileSalt + ".jpeg"
+	var image = "/images/" + fileSalt + ".jpeg"
 
 	return c.JSON(
 		payload.UploadCoverImg{Image: &image},
