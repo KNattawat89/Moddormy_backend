@@ -3,7 +3,9 @@ package profile
 import (
 	"Moddormy_backend/loaders/mysql"
 	"Moddormy_backend/loaders/mysql/model"
+	"Moddormy_backend/types/payload"
 	"Moddormy_backend/types/response"
+	"Moddormy_backend/utils/value"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -32,5 +34,14 @@ func GetProfileDorm(c *fiber.Ctx) error {
 		}
 	}
 
-	return c.JSON(dorms)
+	mappedDormProfile, _ := value.Iterate(dorms, func(dorm model.Dorm) (*payload.DormProfile,error) {
+			return &payload.DormProfile{
+				DormId: dorm.Id,
+				DormName: dorm.DormName,
+				CoverImage: dorm.CoverImage,
+				CreatedAt: dorm.CreatedAt,
+			},nil
+	});
+
+	return c.JSON(response.NewResponse(mappedDormProfile))
 }
