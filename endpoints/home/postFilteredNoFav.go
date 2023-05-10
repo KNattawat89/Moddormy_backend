@@ -1916,7 +1916,7 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 			finalRate = 0
 		}
 		//coverimage
-		coverImage, _ := url.JoinPath(config.C.URL, *dorm.CoverImage)
+		coverImage, _ := url.JoinPath(config.C.ProductionURL, *dorm.CoverImage)
 		var fav bool
 		fav = false
 		return &payload.DormSearch{

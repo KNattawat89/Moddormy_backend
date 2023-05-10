@@ -61,7 +61,7 @@ func GetFav(c *fiber.Ctx) error {
 			ratingAvg = 0
 		}
 
-		coverImage, _ := url.JoinPath(config.C.URL, *dorm.CoverImage)
+		coverImage, _ := url.JoinPath(config.C.ProductionURL, *dorm.CoverImage)
 		var prices []float64
 		for _, room := range dorm.Rooms {
 			prices = append(prices, *room.Price)

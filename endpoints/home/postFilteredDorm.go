@@ -7,6 +7,7 @@ import (
 	"Moddormy_backend/types/response"
 	"Moddormy_backend/utils/config"
 	"Moddormy_backend/utils/value"
+	"fmt"
 
 	"net/url"
 	"sort"
@@ -1901,6 +1902,7 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 			prices = append(prices, *room.Price)
 		}
 		sort.Float64sAreSorted(prices)
+		fmt.Print(prices)
 		//rate
 		var overallRates []float64
 		for _, rate := range dorm.Reviews {
@@ -1957,7 +1959,7 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 		var pointer = len(rating) - 1
 		var word = string(rating[pointer])
 		var num, _ = strconv.Atoi(word)
-	
+
 		if *body.MinPrice > 0 {
 			if *body.MaxPrice > 0 {
 				for i := 0; i < len(data); i++ {
@@ -1965,7 +1967,7 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 						finalData = append(finalData, *data[i])
 					}
 				}
-			}else {
+			} else {
 				for i := 0; i < len(data); i++ {
 					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
 						finalData = append(finalData, *data[i])
@@ -1973,18 +1975,18 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 				}
 			}
 
-		} else if *body.MaxPrice > 0{
+		} else if *body.MaxPrice > 0 {
 			//have only max
 			for i := 0; i < len(data); i++ {
 				if (*data[i].MaxPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
 					finalData = append(finalData, *data[i])
 				}
 			}
-	
-		} else{
+
+		} else {
 			// have only rating
 			for i := 0; i < len(data); i++ {
-				if (*data[i].OverallRate >= float64(num)) {
+				if *data[i].OverallRate >= float64(num) {
 					finalData = append(finalData, *data[i])
 				}
 			}
@@ -1994,25 +1996,25 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 		if *body.MinPrice > 0 {
 			if *body.MaxPrice > 0 {
 				for i := 0; i < len(data); i++ {
-					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].MinPrice <= float64(*body.MaxPrice))  {
+					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].MinPrice <= float64(*body.MaxPrice)) {
 						finalData = append(finalData, *data[i])
 					}
 				}
-			}else {
+			} else {
 				for i := 0; i < len(data); i++ {
-					if (*data[i].MinPrice >= float64(*body.MinPrice)) {
+					if *data[i].MinPrice >= float64(*body.MinPrice) {
 						finalData = append(finalData, *data[i])
 					}
 				}
 			}
-		} else if *body.MaxPrice > 0{
-		//have only max
+		} else if *body.MaxPrice > 0 {
+			//have only max
 			for i := 0; i < len(data); i++ {
-				if (*data[i].MaxPrice <= float64(*body.MaxPrice)) {
-				finalData = append(finalData, *data[i])
+				if *data[i].MaxPrice <= float64(*body.MaxPrice) {
+					finalData = append(finalData, *data[i])
 				}
 			}
-		} 
+		}
 	}
 
 	return c.JSON(response.NewResponse(finalData))
