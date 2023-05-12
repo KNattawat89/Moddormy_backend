@@ -7,6 +7,7 @@ import (
 	"Moddormy_backend/types/response"
 	"Moddormy_backend/utils/config"
 	"Moddormy_backend/utils/value"
+	"fmt"
 	"net/url"
 	"sort"
 	"strconv"
@@ -1894,8 +1895,10 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 	}
 
 	data, _ := value.Iterate(dorms, func(dorm model.Dorm) (*payload.DormSearch, error) {
+		fmt.Println("111111")
 		//price
 		var prices []float64
+		fmt.Println(len(dorm.Rooms))
 		for _, room := range dorm.Rooms {
 			prices = append(prices, *room.Price)
 		}
@@ -1919,12 +1922,18 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 		coverImage, _ := url.JoinPath(config.C.ProductionURL, *dorm.CoverImage)
 		var fav bool
 		fav = false
+		var minPrice *float64
+		var maxPrice *float64
+		if len(prices) > 0 {
+			minPrice = &prices[0]
+			maxPrice = &prices[len(prices)-1]
+		}
 		return &payload.DormSearch{
 			DormId:      dorm.Id,
 			DormName:    dorm.DormName,
 			CoverImage:  &coverImage,
-			MinPrice:    &prices[0],
-			MaxPrice:    &prices[len(prices)-1],
+			MinPrice:    minPrice,
+			MaxPrice:    maxPrice,
 			OverallRate: &finalRate,
 			FavStatus:   &fav,
 		}, nil
