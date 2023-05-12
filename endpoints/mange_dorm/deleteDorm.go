@@ -27,6 +27,20 @@ func DeleteDorm(c *fiber.Ctx) error {
 		}
 	}
 
+	var dormImages []model.DormImage
+	if result := mysql.Gorm.Where("dorm_id = ?", dormId).Find(&dormImages); result.Error != nil {
+		return &response.GenericError{
+			Message: "DormImage not found",
+			Err:     result.Error,
+		}
+	}
+	if result := mysql.Gorm.Delete(&dormImages); result.Error != nil {
+		return &response.GenericError{
+			Message: "Unable to delete dormImage",
+			Err:     result.Error,
+		}
+	}
+
 	if result := mysql.Gorm.Delete(&dorm); result.Error != nil {
 		return &response.GenericError{
 			Message: "Unable to delete dorm",
