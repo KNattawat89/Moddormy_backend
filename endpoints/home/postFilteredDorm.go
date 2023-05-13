@@ -1892,8 +1892,14 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 		}
 
 	}
+	var filteredDorms []model.Dorm
+	for _, dorm := range dorms {
+		if len(dorm.Rooms) > 0 {
+			filteredDorms = append(filteredDorms, dorm)
+		}
+	}
 
-	data, _ := value.Iterate(dorms, func(dorm model.Dorm) (*payload.Home, error) {
+	data, _ := value.Iterate(filteredDorms, func(dorm model.Dorm) (*payload.Home, error) {
 		//price
 		var prices []float64
 		for _, room := range dorm.Rooms {
@@ -1918,18 +1924,18 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 		//coverimage
 		coverImage, _ := url.JoinPath(config.C.ProductionURL, *dorm.CoverImage)
 		fav := false
-		var minPrice *float64
-		var maxPrice *float64
+		var minPrice float64
+		var maxPrice float64
 		if len(prices) > 0 {
-			minPrice = &prices[0]
-			maxPrice = &prices[len(prices)-1]
+			minPrice = prices[0]
+			maxPrice = prices[len(prices)-1]
 		}
 		return &payload.Home{
 			DormId:      dorm.Id,
 			DormName:    dorm.DormName,
 			CoverImage:  &coverImage,
-			MinPrice:    minPrice,
-			MaxPrice:    maxPrice,
+			MinPrice:    &minPrice,
+			MaxPrice:    &maxPrice,
 			OverallRate: &finalRate,
 			FavStatus:   &fav,
 		}, nil
@@ -1957,65 +1963,71 @@ func PostFilteredDorm(c *fiber.Ctx) error {
 
 	var finalData []payload.Home
 	var rating = *body.Rate
-	if rating != "" {
-		var pointer = len(rating) - 1
-		var word = string(rating[pointer])
-		var num, _ = strconv.Atoi(word)
+	for x := 0; x < len(data); x++ {
+		if *data[x].MinPrice != 0 {
+			if rating != "" {
+				var pointer = len(rating) - 1
+				var word = string(rating[pointer])
+				var num, _ = strconv.Atoi(word)
 
-		if *body.MinPrice > 0 {
-			if *body.MaxPrice > 0 {
-				for i := 0; i < len(data); i++ {
-					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].MinPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
-						finalData = append(finalData, *data[i])
+				if *body.MinPrice > 0 {
+					if *body.MaxPrice > 0 {
+						for i := 0; i < len(data); i++ {
+							if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].MinPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
+								finalData = append(finalData, *data[i])
+							}
+						}
+					} else {
+						for i := 0; i < len(data); i++ {
+							if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
+								finalData = append(finalData, *data[i])
+							}
+						}
+					}
+
+				} else if *body.MaxPrice > 0 {
+					//have only max
+					for i := 0; i < len(data); i++ {
+						if (*data[i].MaxPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
+							finalData = append(finalData, *data[i])
+						}
+					}
+
+				} else {
+					// have only rating
+					for i := 0; i < len(data); i++ {
+						if *data[i].OverallRate >= float64(num) {
+							finalData = append(finalData, *data[i])
+						}
 					}
 				}
 			} else {
-				for i := 0; i < len(data); i++ {
-					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].OverallRate >= float64(num)) {
-						finalData = append(finalData, *data[i])
+				// no rating
+				if *body.MinPrice > 0 {
+					if *body.MaxPrice > 0 {
+						for i := 0; i < len(data); i++ {
+							if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].MinPrice <= float64(*body.MaxPrice)) {
+								finalData = append(finalData, *data[i])
+							}
+						}
+					} else {
+						for i := 0; i < len(data); i++ {
+							if *data[i].MinPrice >= float64(*body.MinPrice) {
+								finalData = append(finalData, *data[i])
+							}
+						}
+					}
+				} else if *body.MaxPrice > 0 {
+					//have only max
+					for i := 0; i < len(data); i++ {
+						if *data[i].MaxPrice <= float64(*body.MaxPrice) {
+							finalData = append(finalData, *data[i])
+						}
 					}
 				}
 			}
-
-		} else if *body.MaxPrice > 0 {
-			//have only max
-			for i := 0; i < len(data); i++ {
-				if (*data[i].MaxPrice <= float64(*body.MaxPrice)) && (*data[i].OverallRate >= float64(num)) {
-					finalData = append(finalData, *data[i])
-				}
-			}
-
 		} else {
-			// have only rating
-			for i := 0; i < len(data); i++ {
-				if *data[i].OverallRate >= float64(num) {
-					finalData = append(finalData, *data[i])
-				}
-			}
-		}
-	} else {
-		// no rating
-		if *body.MinPrice > 0 {
-			if *body.MaxPrice > 0 {
-				for i := 0; i < len(data); i++ {
-					if (*data[i].MinPrice >= float64(*body.MinPrice)) && (*data[i].MinPrice <= float64(*body.MaxPrice)) {
-						finalData = append(finalData, *data[i])
-					}
-				}
-			} else {
-				for i := 0; i < len(data); i++ {
-					if *data[i].MinPrice >= float64(*body.MinPrice) {
-						finalData = append(finalData, *data[i])
-					}
-				}
-			}
-		} else if *body.MaxPrice > 0 {
-			//have only max
-			for i := 0; i < len(data); i++ {
-				if *data[i].MaxPrice <= float64(*body.MaxPrice) {
-					finalData = append(finalData, *data[i])
-				}
-			}
+			continue
 		}
 	}
 

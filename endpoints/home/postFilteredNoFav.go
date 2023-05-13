@@ -1893,8 +1893,14 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 		}
 
 	}
+	var filteredDorms []model.Dorm
+	for _, dorm := range dorms {
+		if len(dorm.Rooms) > 0 {
+			filteredDorms = append(filteredDorms, dorm)
+		}
+	}
 
-	data, _ := value.Iterate(dorms, func(dorm model.Dorm) (*payload.DormSearch, error) {
+	data, _ := value.Iterate(filteredDorms, func(dorm model.Dorm) (*payload.DormSearch, error) {
 		fmt.Println("111111")
 		//price
 		var prices []float64
