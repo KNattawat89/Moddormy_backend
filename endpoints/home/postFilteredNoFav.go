@@ -7,7 +7,6 @@ import (
 	"Moddormy_backend/types/response"
 	"Moddormy_backend/utils/config"
 	"Moddormy_backend/utils/value"
-	"fmt"
 	"net/url"
 	"sort"
 	"strconv"
@@ -1901,10 +1900,8 @@ func PostFilteredNoFav(c *fiber.Ctx) error {
 	}
 
 	data, _ := value.Iterate(filteredDorms, func(dorm model.Dorm) (*payload.DormSearch, error) {
-		fmt.Println("111111")
 		//price
 		var prices []float64
-		fmt.Println(len(dorm.Rooms))
 		for _, room := range dorm.Rooms {
 			prices = append(prices, *room.Price)
 		}
